@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Auth.js Models ──────────────────────────────────────────────────────────
+
+enum Role {
+  VISITOR
+  CONTRIBUTOR
+  ADMIN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(VISITOR)
+
+  accounts    Account[]
+  sessions    Session[]
+  likes       Like[]
+  comments    Comment[]
+  submissions Submission[] @relation("SubmittedBy")
+  reviewed    Submission[] @relation("ReviewedBy")
+  resources   Resource[]   @relation("AuthoredBy")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// ─── Content Models ──────────────────────────────────────────────────────────
+
+model Category {
+  id           String     @id @default(cuid())
+  name         String     @unique
+  slug         String     @unique
+  description  String?
+  displayOrder Int        @default(0)
+  resources    Resource[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ResourceStatus {
+  DRAFT
+  PUBLISHED
+  COMING_SOON
+}
+
+model Resource {
+  id             String         @id @default(cuid())
+  title          String
+  slug           String         @unique
+  description    String
+  body           String
+  type           String
+  status         ResourceStatus @default(DRAFT)
+  readTime       String?
+  targetAudience String[]
+  thumbnailUrl   String?
+  externalLinks  Json?
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+  author     User?    @relation("AuthoredBy", fields: [authorId], references: [id])
+  authorId   String?
+  tags       Tag[]
+  likes      Like[]
+  comments   Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  slug      String     @unique
+  resources Resource[]
+}
+
+// ─── Interaction Models ──────────────────────────────────────────────────────
+
+model Like {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  resourceId String
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, resourceId])
+}
+
+model Comment {
+  id         String @id @default(cuid())
+  body       String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  resourceId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Submission Models ───────────────────────────────────────────────────────
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Submission {
+  id            String           @id @default(cuid())
+  title         String
+  description   String
+  body          String?
+  type          String
+  externalUrl   String?
+  status        SubmissionStatus @default(PENDING)
+
+  submittedBy   User   @relation("SubmittedBy", fields: [submittedById], references: [id])
+  submittedById String
+  reviewedBy    User?  @relation("ReviewedBy", fields: [reviewedById], references: [id])
+  reviewedById  String?
+  reviewNote    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
