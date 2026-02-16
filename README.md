@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Platform Engineering Toolkit
+
+Proven practices to shape the people and organizational side of platform engineering.
+
+**Tech stack:** Next.js 16 · TypeScript · Tailwind CSS · Prisma · PostgreSQL · Auth.js
 
 ## Getting Started
 
-First, run the development server:
+### Option A: Docker (Recommended)
+
+The fastest way to get a consistent dev environment on any machine.
+
+**Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 1. Clone the repo
+git clone git@github.com:Differ3nce/platformengineerintoolkit.git
+cd platformengineerintoolkit
+
+# 2. Create your env file for Docker
+cp .env.example .env.docker
+# Edit .env.docker — set DATABASE_URL host to 'db':
+#   DATABASE_URL="postgresql://postgres:postgres@db:5432/platform_toolkit_dev"
+# Add your Google OAuth credentials and generate an AUTH_SECRET.
+
+# 3. Start everything (builds app image + starts PostgreSQL)
+npm run docker:up
+
+# 4. In a separate terminal, run the database migration
+npm run docker:migrate
+
+# 5. (Optional) Seed the database with initial content
+npm run docker:seed
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app is now running at **http://localhost:3000**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Other Docker commands:**
+```bash
+npm run docker:down       # Stop all containers
+npm run docker:studio     # Open Prisma Studio (DB browser)
+npm run docker:seed       # Run seed script
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Option B: Local Development
 
-## Learn More
+**Prerequisites:** [Node.js 22+](https://nodejs.org/) · [PostgreSQL 17](https://www.postgresql.org/download/)
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# 1. Clone the repo
+git clone git@github.com:Differ3nce/platformengineerintoolkit.git
+cd platformengineerintoolkit
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 2. Install dependencies
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 3. Create your env file
+cp .env.example .env
+# Edit .env — add your PostgreSQL password, Google OAuth credentials, AUTH_SECRET
 
-## Deploy on Vercel
+# 4. Create the database
+psql -U postgres -c "CREATE DATABASE platform_toolkit_dev;"
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 5. Run migrations
+npm run db:migrate
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 6. Start the dev server
+npm run dev
+```
+
+## Project Structure
+
+```
+src/
+  app/                    # Next.js App Router pages
+    admin/                # Admin panel (protected)
+    api/                  # API route handlers
+    [categorySlug]/       # Public category + resource pages
+    about/                # Static about page
+    get-involved/         # Contribution page
+  components/             # React components
+    admin/                # Admin-specific components
+    layout/               # Header, Footer
+    resources/            # ResourceCard, MarkdownContent
+  lib/                    # Shared utilities (prisma, auth, utils)
+prisma/
+  schema.prisma           # Database schema
+  migrations/             # Migration history
+  seed.ts                 # Seed script
+```
+
+## Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start Next.js dev server |
+| `npm run build` | Production build |
+| `npm run lint` | Run ESLint |
+| `npm run db:migrate` | Run Prisma migrations |
+| `npm run db:seed` | Seed the database |
+| `npm run db:studio` | Open Prisma Studio |
+| `npm run docker:up` | Start Docker dev environment |
+| `npm run docker:down` | Stop Docker containers |

@@ -11,6 +11,11 @@
     "db:push": "npx prisma db push",
     "db:seed": "npx tsx prisma/seed.ts",
     "db:studio": "npx prisma studio",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down",
+    "docker:migrate": "docker compose exec app npx prisma migrate dev",
+    "docker:seed": "docker compose exec app npx tsx prisma/seed.ts",
+    "docker:studio": "docker compose exec app npx prisma studio",
     "postinstall": "npx prisma generate"
   },
   "prisma": {

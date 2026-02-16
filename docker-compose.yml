@@ -10,6 +10,31 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount source code for hot reload
+      - .:/app
+      # Prevent host node_modules from overriding container's
+      - /app/node_modules
+      # Prevent host .next from overriding container's
+      - /app/.next
+    env_file:
+      - .env.docker
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   pgdata:
