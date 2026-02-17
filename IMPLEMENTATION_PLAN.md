@@ -168,7 +168,7 @@ model Submission {
 - Prisma client generates without errors
 - `npm run build` succeeds
 
-**Status**: Not Started
+**Status**: Complete
 
 ---
 
@@ -205,7 +205,7 @@ model Submission {
 - 404 for non-existent slugs
 - Pages pass Lighthouse accessibility audit (score > 90)
 
-**Status**: Not Started
+**Status**: Complete
 
 ---
 
@@ -256,7 +256,7 @@ model Submission {
 - Deleting a category with resources fails with error message
 - Slug auto-generation produces URL-safe strings
 
-**Status**: Not Started
+**Status**: Complete
 
 ---
 
@@ -297,7 +297,7 @@ model Submission {
 - Submission creates record with PENDING status
 - Unauthenticated users are prompted to sign in
 
-**Status**: Not Started
+**Status**: In Progress
 
 ---
 
