@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import ResourceCard from "@/components/resources/ResourceCard";
 import type { Metadata } from "next";
@@ -45,21 +46,31 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
+  // Fetch all categories for navigation footer
+  const allCategories = await prisma.category.findMany({
+    orderBy: { displayOrder: "asc" },
+  });
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <div className="mx-auto max-w-6xl px-4 py-16">
       {/* Header */}
-      <div className="mb-10">
-        <h1 className="mb-3 text-3xl font-bold text-gray-900">
-          {category.name}
+      <div className="mb-10 text-center">
+        <h1 className="mb-3 text-4xl font-bold text-foreground">
+          🎢 {category.name}
         </h1>
         {category.description && (
-          <p className="max-w-2xl text-gray-600">{category.description}</p>
+          <p className="mx-auto max-w-2xl text-muted-foreground">
+            {category.description}
+          </p>
         )}
+        <div className="gradient-bar mx-auto mt-8 h-2 w-24 rounded-full"></div>
       </div>
 
       {/* Resource Grid */}
       {category.resources.length === 0 ? (
-        <p className="text-gray-500">No resources in this category yet.</p>
+        <p className="text-muted-foreground">
+          No resources in this category yet.
+        </p>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {category.resources.map((resource) => (
@@ -79,6 +90,26 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           ))}
         </div>
       )}
+
+      {/* Navigation Footer */}
+      <div className="mt-16 border-t border-border pt-8">
+        <p className="mb-4 text-center text-sm text-muted-foreground">
+          Explore other sections
+        </p>
+        <div className="flex flex-wrap justify-center gap-4">
+          {allCategories
+            .filter((c) => c.slug !== categorySlug)
+            .map((c) => (
+              <Link
+                key={c.id}
+                href={`/${c.slug}`}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-accent"
+              >
+                {c.name}
+              </Link>
+            ))}
+        </div>
+      </div>
     </div>
   );
 }

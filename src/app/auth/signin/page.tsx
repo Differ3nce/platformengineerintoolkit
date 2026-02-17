@@ -3,8 +3,8 @@ import { signIn } from "@/lib/auth";
 export default function SignInPage() {
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4">
-      <h1 className="mb-2 text-2xl font-bold text-gray-900">Sign in</h1>
-      <p className="mb-8 text-sm text-gray-600">
+      <h1 className="mb-2 text-2xl font-bold text-foreground">Sign in</h1>
+      <p className="mb-8 text-sm text-muted-foreground">
         Sign in to like resources, leave comments, and submit contributions.
       </p>
 
@@ -16,7 +16,7 @@ export default function SignInPage() {
       >
         <button
           type="submit"
-          className="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+          className="flex items-center gap-3 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path

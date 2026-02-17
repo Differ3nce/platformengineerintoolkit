@@ -5,79 +5,84 @@ export default async function Header() {
   const session = await auth();
 
   return (
-    <header className="border-b border-gray-200 bg-white">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="text-lg font-semibold text-gray-900">
-          Platform Engineering Toolkit
-        </Link>
-
-        <div className="flex items-center gap-6">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="mx-auto max-w-6xl px-4 py-4">
+        <nav className="flex items-center justify-between">
           <Link
-            href="/get-involved"
-            className="text-sm text-gray-600 hover:text-gray-900"
+            href="/"
+            className="text-xl font-semibold text-primary transition-colors hover:text-accent"
           >
-            Get Involved
-          </Link>
-          <Link
-            href="/about"
-            className="text-sm text-gray-600 hover:text-gray-900"
-          >
-            About
+            🎢 Platform Engineering Toolkit
           </Link>
 
-          {session?.user ? (
-            <div className="flex items-center gap-3">
-              {session.user.role === "ADMIN" && (
-                <Link
-                  href="/admin"
-                  className="text-sm text-blue-600 hover:text-blue-800"
-                >
-                  Admin
-                </Link>
-              )}
-              <div className="flex items-center gap-2">
-                {session.user.image && (
-                  <img
-                    src={session.user.image}
-                    alt={session.user.name ?? "User"}
-                    className="h-7 w-7 rounded-full"
-                  />
+          <div className="flex items-center gap-6">
+            <Link
+              href="/get-involved"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-accent"
+            >
+              Get Involved
+            </Link>
+            <Link
+              href="/about"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-accent"
+            >
+              About
+            </Link>
+
+            {session?.user ? (
+              <div className="flex items-center gap-3">
+                {session.user.role === "ADMIN" && (
+                  <Link
+                    href="/admin"
+                    className="text-sm font-medium text-primary transition-colors hover:text-accent"
+                  >
+                    Admin
+                  </Link>
                 )}
-                <span className="text-sm text-gray-700">
-                  {session.user.name}
-                </span>
+                <div className="flex items-center gap-2">
+                  {session.user.image && (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name ?? "User"}
+                      className="h-7 w-7 rounded-full border border-border"
+                    />
+                  )}
+                  <span className="text-sm text-muted-foreground">
+                    {session.user.name}
+                  </span>
+                </div>
+                <form
+                  action={async () => {
+                    "use server";
+                    await signOut();
+                  }}
+                >
+                  <button
+                    type="submit"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    Sign out
+                  </button>
+                </form>
               </div>
+            ) : (
               <form
                 action={async () => {
                   "use server";
-                  await signOut();
+                  await signIn("google");
                 }}
               >
                 <button
                   type="submit"
-                  className="text-sm text-gray-500 hover:text-gray-700"
+                  className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
-                  Sign out
+                  Sign in
                 </button>
               </form>
-            </div>
-          ) : (
-            <form
-              action={async () => {
-                "use server";
-                await signIn("google");
-              }}
-            >
-              <button
-                type="submit"
-                className="rounded-md bg-gray-900 px-3 py-1.5 text-sm text-white hover:bg-gray-700"
-              >
-                Sign in
-              </button>
-            </form>
-          )}
-        </div>
-      </nav>
+            )}
+          </div>
+        </nav>
+      </div>
     </header>
   );
 }

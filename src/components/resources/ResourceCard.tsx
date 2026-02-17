@@ -29,22 +29,22 @@ export default function ResourceCard({
 
   const card = (
     <div
-      className={`group rounded-lg border border-gray-200 p-5 transition-colors ${
+      className={`group rounded-lg border border-border bg-card p-6 shadow-card transition-all duration-300 ${
         isComingSoon
           ? "cursor-default opacity-60"
-          : "hover:border-gray-400 hover:bg-gray-50"
+          : "hover:shadow-lg hover:-translate-y-1 hover:bg-card-hover"
       }`}
     >
       {/* Type badge + read time */}
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+        <span className="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
           {type}
         </span>
         {readTime && (
-          <span className="text-xs text-gray-400">{readTime}</span>
+          <span className="text-xs text-muted-foreground">{readTime}</span>
         )}
         {isComingSoon && (
-          <span className="inline-block rounded bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
+          <span className="inline-block rounded bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent-foreground">
             Coming Soon
           </span>
         )}
@@ -52,26 +52,26 @@ export default function ResourceCard({
 
       {/* Title */}
       <h3
-        className={`mb-2 text-lg font-semibold text-gray-900 ${
-          !isComingSoon ? "group-hover:text-blue-600" : ""
+        className={`mb-2 text-lg font-semibold text-card-foreground ${
+          !isComingSoon ? "group-hover:text-primary" : ""
         }`}
       >
         {title}
       </h3>
 
       {/* Description */}
-      <p className="mb-3 text-sm text-gray-600 line-clamp-2">{description}</p>
+      <p className="mb-3 text-sm text-muted-foreground line-clamp-2">{description}</p>
 
       {/* Audience */}
       {targetAudience.length > 0 && (
-        <p className="mb-3 text-xs text-gray-400">
+        <p className="mb-3 text-xs text-muted-foreground">
           For: {targetAudience.join(", ")}
         </p>
       )}
 
       {/* Engagement stats */}
       {(likeCount > 0 || commentCount > 0) && (
-        <div className="flex items-center gap-3 text-xs text-gray-400">
+        <div className="flex items-center gap-3 text-xs text-muted-foreground">
           {likeCount > 0 && (
             <span>
               ♥ {likeCount} like{likeCount !== 1 ? "s" : ""}
