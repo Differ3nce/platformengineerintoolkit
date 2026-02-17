@@ -21,6 +21,32 @@ export const metadata: Metadata = {
   },
   description:
     "Proven practices to shape the people and organizational side of platform engineering — where impact happens.",
+  keywords: [
+    "platform engineering",
+    "developer experience",
+    "DevOps",
+    "internal developer platform",
+    "team topologies",
+    "platform as a product",
+  ],
+  openGraph: {
+    title: "Platform Engineering Toolkit",
+    description:
+      "Not new tech. Just proven practices to shape the people and organizational side of platform engineering — where impact happens.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Platform Engineering Toolkit",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Platform Engineering Toolkit",
+    description:
+      "Proven practices to shape the people and organizational side of platform engineering.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
