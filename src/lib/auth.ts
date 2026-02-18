@@ -9,6 +9,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      // Allow linking Google accounts to existing users (seeded admins)
+      // Safe because Google always verifies email ownership
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   callbacks: {
