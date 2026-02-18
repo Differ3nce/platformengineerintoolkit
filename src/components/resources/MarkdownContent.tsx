@@ -63,7 +63,9 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
             </blockquote>
           ),
         }}
-      />
+      >
+        {content}
+      </ReactMarkdown>
     </div>
   );
 }
