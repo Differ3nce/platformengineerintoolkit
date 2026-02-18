@@ -1,0 +1,5 @@
+.env
+.env.local
+docker-compose.yml
+prisma/seed.ts
+prisma/seed.sql

@@ -2,12 +2,20 @@ import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 
-const isProduction = process.env.NODE_ENV === "production";
+const rawConnectionString = process.env.DATABASE_URL!;
+const needsSsl =
+  process.env.NODE_ENV === "production" ||
+  rawConnectionString.includes("sslmode=");
+
+// Remove sslmode from the connection string so pg uses our ssl config instead
+const connectionString = rawConnectionString.replace(
+  /[?&]sslmode=[^&]*/g,
+  (match) => (match.startsWith("?") ? "?" : "")
+).replace(/\?&/, "?").replace(/\?$/, "");
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL!,
-  // Supabase requires SSL in production
-  ...(isProduction && { ssl: { rejectUnauthorized: false } }),
+  connectionString,
+  ...(needsSsl && { ssl: { rejectUnauthorized: false } }),
 });
 const adapter = new PrismaPg(pool);
 
