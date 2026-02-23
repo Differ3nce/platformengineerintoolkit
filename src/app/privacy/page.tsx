@@ -20,7 +20,7 @@ export default function PrivacyPage() {
           <p>
             Platform Engineering Toolkit is a community resource for platform
             engineering knowledge and tooling. This site is operated by Tom
-            Slenders.
+            Slenders, Gielen Rojas-Lopez, and Dr. Andrea Klettke.
           </p>
         </section>
 
@@ -90,12 +90,10 @@ export default function PrivacyPage() {
           <p>
             For privacy-related questions, contact:{" "}
             <a
-              href="https://www.linkedin.com/in/tomslenders"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:platformengineeringtoolkit@gmail.com"
               className="text-primary underline underline-offset-2 hover:text-accent"
             >
-              Tom Slenders on LinkedIn
+              platformengineeringtoolkit@gmail.com
             </a>
           </p>
         </section>
