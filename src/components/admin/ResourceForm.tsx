@@ -16,6 +16,7 @@ interface Tag {
 interface ExternalLink {
   label: string;
   url: string;
+  description?: string;
 }
 
 interface ResourceFormProps {
@@ -87,7 +88,7 @@ export default function ResourceForm({
   }
 
   function addExternalLink() {
-    setExternalLinks([...externalLinks, { label: "", url: "" }]);
+    setExternalLinks([...externalLinks, { label: "", url: "", description: "" }]);
   }
 
   function removeExternalLink(index: number) {
@@ -96,7 +97,7 @@ export default function ResourceForm({
 
   function updateExternalLink(
     index: number,
-    field: "label" | "url",
+    field: "label" | "url" | "description",
     value: string
   ) {
     const updated = [...externalLinks];
@@ -345,34 +346,43 @@ export default function ResourceForm({
         />
       </div>
 
-      {/* External Links */}
+      {/* Resources / External Links */}
       <div>
         <label className="mb-2 block text-sm font-medium text-gray-700">
-          Further Reading / External Links
+          Resources (External Links)
         </label>
         {externalLinks.map((link, index) => (
-          <div key={index} className="mb-2 flex gap-2">
+          <div key={index} className="mb-3 rounded-md border border-gray-200 p-3">
+            <div className="mb-2 flex gap-2">
+              <input
+                type="text"
+                value={link.label}
+                onChange={(e) => updateExternalLink(index, "label", e.target.value)}
+                placeholder="Label"
+                className="w-1/3 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <input
+                type="url"
+                value={link.url}
+                onChange={(e) => updateExternalLink(index, "url", e.target.value)}
+                placeholder="https://..."
+                className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <button
+                type="button"
+                onClick={() => removeExternalLink(index)}
+                className="text-sm text-red-500 hover:text-red-700"
+              >
+                Remove
+              </button>
+            </div>
             <input
               type="text"
-              value={link.label}
-              onChange={(e) => updateExternalLink(index, "label", e.target.value)}
-              placeholder="Label"
-              className="w-1/3 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              value={link.description ?? ""}
+              onChange={(e) => updateExternalLink(index, "description", e.target.value)}
+              placeholder="Optional description (e.g. 'Article by NN Group')"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
-            <input
-              type="url"
-              value={link.url}
-              onChange={(e) => updateExternalLink(index, "url", e.target.value)}
-              placeholder="https://..."
-              className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
-            <button
-              type="button"
-              onClick={() => removeExternalLink(index)}
-              className="text-sm text-red-500 hover:text-red-700"
-            >
-              Remove
-            </button>
           </div>
         ))}
         <button

@@ -2,6 +2,7 @@
 -- Platform Engineering Toolkit - Content Seed Fix
 -- Updates ALL resource content from markdown source files
 -- Uses PostgreSQL dollar-quoting ($body$...$body$) for safe body content
+-- externalLinks now include optional "description" field
 -- Run in Supabase SQL Editor
 -- Generated: 2026-02-23
 -- =============================================================================
@@ -39,18 +40,16 @@ Technology and tooling are important, but success depends just as much — if no
 - **Adoption focus**, ensuring the people who use the platform can succeed with it.
 - **Platform teams** with the right structure, flow-oriented ways of working, and mindset.
 
-To assess these capabilities, explore the **Platform Engineering Maturity Models** under the *Starting & Progressing* section of this site.
-
-## Further Reading
-
-- [Platform Engineering Guide | Microsoft Learn](https://learn.microsoft.com/en-us/platform-engineering/)
-- [Google Cloud: Platform Engineering](https://cloud.google.com/solutions/platform-engineering)
-- [AWS Platform Perspective](https://docs.aws.amazon.com/prescriptive-guidance/latest/aws-caf-platform-perspective/platform-eng.html)
-- [PlatformEngineering.org: What is Platform Engineering](https://platformengineering.org/blog/what-is-platform-engineering)$body$,
+To assess these capabilities, explore the **Platform Engineering Maturity Models** under the *Starting & Progressing* section of this site.$body$,
   type = 'Article',
   "readTime" = '8 min read',
   "targetAudience" = ARRAY['Anyone interested'],
-  "externalLinks" = '[{"label": "Platform Engineering Guide | Microsoft Learn", "url": "https://learn.microsoft.com/en-us/platform-engineering/"}, {"label": "Google Cloud: Platform Engineering", "url": "https://cloud.google.com/solutions/platform-engineering"}, {"label": "AWS Platform Perspective", "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/aws-caf-platform-perspective/platform-eng.html"}, {"label": "PlatformEngineering.org: What is Platform Engineering", "url": "https://platformengineering.org/blog/what-is-platform-engineering"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Platform Engineering Guide | Microsoft Learn", "url": "https://learn.microsoft.com/en-us/platform-engineering/"},
+    {"label": "Google Cloud: Platform Engineering", "url": "https://cloud.google.com/solutions/platform-engineering"},
+    {"label": "AWS Platform Perspective", "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/aws-caf-platform-perspective/platform-eng.html"},
+    {"label": "PlatformEngineering.org: What is Platform Engineering", "url": "https://platformengineering.org/blog/what-is-platform-engineering"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'introduction-to-platform-engineering';
 
@@ -77,20 +76,15 @@ The paper clarifies:
 
 - Understand the key considerations influencing Platform Engineering outcomes.
 - Frame platform evolution conversations in a structured and practice-informed way.
-- Identify areas and stakeholders that require deliberate attention.
-
-## Resources
-
-Full paper:
-**Read the paper →** [https://valuecraftstudio.com/platform-engineering-1](https://valuecraftstudio.com/platform-engineering-1)
-
-Related articles: [Platform Engineering, beyond the Tech stack](https://www.linkedin.com/pulse/platform-engineering-beyond-tech-stack-gielen-rojas-lopez-ae7ne/?trackingId=mU1CYGp%2BR6GZDD2x7H7kmw%3D%3D)
-
-[From Anti-patterns to Evolutionary PlatformOps](https://www.linkedin.com/pulse/from-anti-patterns-evolutionary-platform-ops-gielen-rojas-lopez-iydbe/?trackingId=G9ievlrtRk6r3K53xzjb%2Bw%3D%3D)$body$,
+- Identify areas and stakeholders that require deliberate attention.$body$,
   type = 'Article',
   "readTime" = '15 min read',
   "targetAudience" = ARRAY['C-Board', 'Transformation', 'Change', 'ITSM & Platform Leaders'],
-  "externalLinks" = '[{"label": "PlatformOps - Platforms as systems of value (full paper)", "url": "https://valuecraftstudio.com/platform-engineering-1"}, {"label": "Platform Engineering, beyond the Tech stack", "url": "https://www.linkedin.com/pulse/platform-engineering-beyond-tech-stack-gielen-rojas-lopez-ae7ne/?trackingId=mU1CYGp%2BR6GZDD2x7H7kmw%3D%3D"}, {"label": "From Anti-patterns to Evolutionary PlatformOps", "url": "https://www.linkedin.com/pulse/from-anti-patterns-evolutionary-platform-ops-gielen-rojas-lopez-iydbe/?trackingId=G9ievlrtRk6r3K53xzjb%2Bw%3D%3D"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "PlatformOps - Platforms as systems of value", "url": "https://valuecraftstudio.com/platform-engineering-1", "description": "Full paper"},
+    {"label": "Platform Engineering, beyond the Tech stack", "url": "https://www.linkedin.com/pulse/platform-engineering-beyond-tech-stack-gielen-rojas-lopez-ae7ne/?trackingId=mU1CYGp%2BR6GZDD2x7H7kmw%3D%3D", "description": "Related article"},
+    {"label": "From Anti-patterns to Evolutionary PlatformOps", "url": "https://www.linkedin.com/pulse/from-anti-patterns-evolutionary-platform-ops-gielen-rojas-lopez-iydbe/?trackingId=G9ievlrtRk6r3K53xzjb%2Bw%3D%3D", "description": "Related article"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'creating-platform-as-value-system';
 
@@ -112,15 +106,13 @@ In an IT landscape of a few thousand people, getting things done often felt like
 - Create traction by involving different layers with an appropriate message
 - Leverage industry knowledge
 - Involve line management
-- Repeat your story 10x more than you think is necessary
-
-## Resources
-
-[Unlocking Flow: Combining Team Topologies and Platform Engineering at ASML IT](https://www.youtube.com/watch?v=UuY9VREki40&t=3s)$body$,
+- Repeat your story 10x more than you think is necessary$body$,
   type = 'Video Case Study',
   "readTime" = '30 min watch',
   "targetAudience" = ARRAY['Transformation & Platform Leaders', 'Change Managers', 'Product Managers'],
-  "externalLinks" = '[{"label": "Unlocking Flow: Combining Team Topologies and Platform Engineering at ASML IT", "url": "https://www.youtube.com/watch?v=UuY9VREki40&t=3s"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Unlocking Flow: Combining Team Topologies and Platform Engineering at ASML IT", "url": "https://www.youtube.com/watch?v=UuY9VREki40&t=3s", "description": "Conference talk recording"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'storytelling-on-different-levels';
 
@@ -153,22 +145,6 @@ Use Wardley maps for platform engineering to:
 - Understand competitive dynamics in your technology space
 - Guide investment decisions and resource allocation
 
-## Learning Resources
-
-**Free Book:**
-
-- [Learn Wardley Mapping](https://learnwardleymapping.com/) - Complete online resource
-- [Free Wardley Mapping Book](https://learnwardleymapping.com/book/) - Comprehensive guide
-
-## Simon Wardley Video Series
-
-**Essential viewing for understanding Wardley Maps:**
-
-- [Part 1: How and why to map your business](https://www.youtube.com/watch?v=KkePAhnkHeg) - Introduction to mapping concepts
-- [Part 2: How to spot patterns](https://www.youtube.com/watch?v=xsDT7L-tARs) - Identifying strategic patterns
-- [Part 3: How to anticipate change](https://www.youtube.com/watch?v=58iLrw6-4x4) - Predicting evolution
-- [Part 4: How to use doctrine and gameplay](https://www.youtube.com/watch?v=gPDVA6uVAlU) - Strategic principles and tactics
-
 ## Getting Started
 
 Begin your Wardley mapping journey:
@@ -181,7 +157,14 @@ Begin your Wardley mapping journey:
   type = 'Book Guide Video series',
   "readTime" = '20 min read',
   "targetAudience" = ARRAY['Strategic planners', 'Architects'],
-  "externalLinks" = '[{"label": "Learn Wardley Mapping", "url": "https://learnwardleymapping.com/"}, {"label": "Free Wardley Mapping Book", "url": "https://learnwardleymapping.com/book/"}, {"label": "Simon Wardley Part 1", "url": "https://www.youtube.com/watch?v=KkePAhnkHeg"}, {"label": "Simon Wardley Part 2", "url": "https://www.youtube.com/watch?v=xsDT7L-tARs"}, {"label": "Simon Wardley Part 3", "url": "https://www.youtube.com/watch?v=58iLrw6-4x4"}, {"label": "Simon Wardley Part 4", "url": "https://www.youtube.com/watch?v=gPDVA6uVAlU"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Learn Wardley Mapping", "url": "https://learnwardleymapping.com/", "description": "Complete online resource"},
+    {"label": "Free Wardley Mapping Book", "url": "https://learnwardleymapping.com/book/", "description": "Comprehensive guide"},
+    {"label": "Part 1: How and why to map your business", "url": "https://www.youtube.com/watch?v=KkePAhnkHeg", "description": "Simon Wardley video series"},
+    {"label": "Part 2: How to spot patterns", "url": "https://www.youtube.com/watch?v=xsDT7L-tARs", "description": "Simon Wardley video series"},
+    {"label": "Part 3: How to anticipate change", "url": "https://www.youtube.com/watch?v=58iLrw6-4x4", "description": "Simon Wardley video series"},
+    {"label": "Part 4: How to use doctrine and gameplay", "url": "https://www.youtube.com/watch?v=gPDVA6uVAlU", "description": "Simon Wardley video series"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'wardley-mapping';
 
@@ -192,13 +175,13 @@ SET
   description = 'A canvas tool to map and discuss the services provided by internal platforms in a simple, visual way.',
   body = $body$## PlatformOps – Platform Services Landscape Canvas
 
-Understanding what platforms exist, what they offer and how they're perceived—is the first step towards improving at Enteprise level. The **Platform Services Landscape Canvas** helps teams map and discuss the services provided by internal platforms (or platform-like functions) in a simple, visual way. It's designed to spark shared understanding across roles, reveal gaps or overlaps, and provide a common base for further analysis, planning and improvement discussions. Ideal for quick, collaborative workshops (30–60 minutes) that bring platform, product, and operations perspectives together.
-
-**Explore the canvas:** [Summary, downloadable PDF, and guide](https://valuecraftstudio.com/platformops-landscape)$body$,
+Understanding what platforms exist, what they offer and how they're perceived—is the first step towards improving at Enteprise level. The **Platform Services Landscape Canvas** helps teams map and discuss the services provided by internal platforms (or platform-like functions) in a simple, visual way. It's designed to spark shared understanding across roles, reveal gaps or overlaps, and provide a common base for further analysis, planning and improvement discussions. Ideal for quick, collaborative workshops (30–60 minutes) that bring platform, product, and operations perspectives together.$body$,
   type = 'Tool',
   "readTime" = '45 min workshop',
   "targetAudience" = ARRAY['Change facilitators', 'Platform Engineers', 'Product managers', 'Architects'],
-  "externalLinks" = '[{"label": "Summary, downloadable PDF, and guide", "url": "https://valuecraftstudio.com/platformops-landscape"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Summary, downloadable PDF, and guide", "url": "https://valuecraftstudio.com/platformops-landscape"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'platformops-landscape';
 
@@ -213,16 +196,14 @@ SET
 
 ### Platform Engineering & Team Topologies
 
-**Team Topologies** is essential for platform engineering success—not just in shaping the platform team itself, but in applying its principles of Platform as Product, team design, interaction modes, and cognitive load management. These concepts create the conditions for platforms to be adopted, deliver value, and evolve.
-
-To get started, visit:
-
-- [**The Platform Manifesto** – Principles for platform engineering as a discipline](https://teamtopologies.com/platform-manifesto)
-- [**Team Topologies Site** – In-depth resources on team design and interaction](https://teamtopologies.com/)$body$,
+**Team Topologies** is essential for platform engineering success—not just in shaping the platform team itself, but in applying its principles of Platform as Product, team design, interaction modes, and cognitive load management. These concepts create the conditions for platforms to be adopted, deliver value, and evolve.$body$,
   type = 'Framework',
   "readTime" = '10 min read',
   "targetAudience" = ARRAY['Team leads', 'Organizational designers'],
-  "externalLinks" = '[{"label": "The Platform Manifesto", "url": "https://teamtopologies.com/platform-manifesto"}, {"label": "Team Topologies Site", "url": "https://teamtopologies.com/"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "The Platform Manifesto", "url": "https://teamtopologies.com/platform-manifesto", "description": "Principles for platform engineering as a discipline"},
+    {"label": "Team Topologies Site", "url": "https://teamtopologies.com/", "description": "In-depth resources on team design and interaction"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'team-topologies';
 
@@ -235,19 +216,15 @@ SET
 
 A framework for reflection and for identifying opportunities for improvement in any organization leveraging platforms. The model is relatively simple with only 5 categories to measure. However, they are categories that are essential and a good place to start for any platform.
 
-Note that, as with any maturity model, it is not about checking the boxes and move on. The conversation driven by the model can help you mature.
-
-## Resources
-
-Find the model below:
-
-- [Maturity model by CNCF](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/#model-table)
-- [Full article on the model](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/) - Article introducing the canvas
-- [Platform Engineering Capability Model](https://learn.microsoft.com/en-us/platform-engineering/platform-engineering-capability-model) - A derivative model by Microsoft which extends the model, but is focused more on cloud computing and less generic.$body$,
+Note that, as with any maturity model, it is not about checking the boxes and move on. The conversation driven by the model can help you mature.$body$,
   type = 'Assessment Framework',
   "readTime" = '15 min read',
   "targetAudience" = ARRAY['Product managers', 'Platform Engineers', 'Architects', 'Transformation leads'],
-  "externalLinks" = '[{"label": "Maturity model by CNCF", "url": "https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/#model-table"}, {"label": "Full article on the model", "url": "https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/"}, {"label": "Platform Engineering Capability Model (Microsoft)", "url": "https://learn.microsoft.com/en-us/platform-engineering/platform-engineering-capability-model"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Maturity model by CNCF", "url": "https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/#model-table"},
+    {"label": "Full article on the model", "url": "https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/", "description": "Article introducing the canvas"},
+    {"label": "Platform Engineering Capability Model", "url": "https://learn.microsoft.com/en-us/platform-engineering/platform-engineering-capability-model", "description": "A derivative model by Microsoft which extends the model, but is focused more on cloud computing and less generic."}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'pe-maturity-model';
 
@@ -260,18 +237,14 @@ SET
 
 Doing product management for a platform has many similarities with normal product management. One of the tools coming out of UX in this relation we found incredibly valuable when starting with a platform engineering journey, is the service blueprint.
 
-The service blueprint combines user journey mapping (your internal user) with how they interact with the underlying systems of your platform. This tool can be used in workshops and interviews to make it more explicit how the users are interacting with your platform, but also where they feel pain. At the same time, it highlights the need for easy usage/onboarding of your platform, one of the typical pitfalls of traditional IT Service management.
-
-## Resources
-
-Many resources exist, but we found this article especially helpful:
-
-- [Service blueprint](https://www.nngroup.com/articles/service-blueprints-definition/) - Article by NN Group
-- [Miro template](https://miro.com/templates/service-blueprint-journey-operations/)$body$,
+The service blueprint combines user journey mapping (your internal user) with how they interact with the underlying systems of your platform. This tool can be used in workshops and interviews to make it more explicit how the users are interacting with your platform, but also where they feel pain. At the same time, it highlights the need for easy usage/onboarding of your platform, one of the typical pitfalls of traditional IT Service management.$body$,
   type = 'Workshop Tool',
   "readTime" = '10 min read',
   "targetAudience" = ARRAY['Product managers'],
-  "externalLinks" = '[{"label": "Service blueprint - NN Group", "url": "https://www.nngroup.com/articles/service-blueprints-definition/"}, {"label": "Miro template", "url": "https://miro.com/templates/service-blueprint-journey-operations/"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Service blueprint", "url": "https://www.nngroup.com/articles/service-blueprints-definition/", "description": "Article by NN Group"},
+    {"label": "Miro template", "url": "https://miro.com/templates/service-blueprint-journey-operations/"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'service-blueprint';
 
@@ -290,19 +263,15 @@ User needs mapping, created by Rich Allen, serves as a quick way to start with W
 - Visualize link between user needs and capabilities, including dependencies
 - Determine whether the current team setup can be improved by optimizing team boundaries
 
-Note that the approach has similarities with Architecture for flow.
-
-## Resources
-
-To get started with User needs mapping, explore these resources:
-
-- [User needs mapping](https://userneedsmapping.com/) - Canvas and instructions
-- [From Inside Out to Outside-In: Aligning Teams Around What Matters](https://www.youtube.com/watch?v=UYbTZzvk_C0) - Overview presentation
-- [Exploring Team and Service Boundaries with User Needs Mapping](https://teamtopologies.com/key-concepts-content/exploring-team-and-service-boundaries-with-user-needs-mapping) - Overview article$body$,
+Note that the approach has similarities with Architecture for flow.$body$,
   type = 'Workshop Tool',
   "readTime" = '15 min read',
   "targetAudience" = ARRAY['Product Managers', 'UX Researchers', 'Platform Teams', 'Architects'],
-  "externalLinks" = '[{"label": "User needs mapping - Canvas and instructions", "url": "https://userneedsmapping.com/"}, {"label": "From Inside Out to Outside-In: Aligning Teams Around What Matters", "url": "https://www.youtube.com/watch?v=UYbTZzvk_C0"}, {"label": "Exploring Team and Service Boundaries with User Needs Mapping", "url": "https://teamtopologies.com/key-concepts-content/exploring-team-and-service-boundaries-with-user-needs-mapping"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "User needs mapping", "url": "https://userneedsmapping.com/", "description": "Canvas and instructions"},
+    {"label": "From Inside Out to Outside-In: Aligning Teams Around What Matters", "url": "https://www.youtube.com/watch?v=UYbTZzvk_C0", "description": "Overview presentation"},
+    {"label": "Exploring Team and Service Boundaries with User Needs Mapping", "url": "https://teamtopologies.com/key-concepts-content/exploring-team-and-service-boundaries-with-user-needs-mapping", "description": "Overview article"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'user-needs-mapping';
 
@@ -321,18 +290,14 @@ The Architecture for Flow Canvas, created by Susanne Kaiser, provides guidance f
 - Align business, technical, and organizational perspectives
 - Support decision-making in complex, fast-changing environments
 
-Note that the approach has similarities with User needs mapping, but has a broader and more thorough scope.
-
-## Resources
-
-To get started with Architecture for Flow, explore these resources:
-
-- [Architecture for Flow Canvas](https://susannekaiser.net/architecture-for-flow-canvas/) - Interactive canvas and toolkit
-- [Video Introduction](https://youtu.be/Mm0ctgk-uIM?feature=shared) - Watch the foundational concepts explained$body$,
+Note that the approach has similarities with User needs mapping, but has a broader and more thorough scope.$body$,
   type = 'Workshop Tool',
   "readTime" = '15 min read',
   "targetAudience" = ARRAY['System Architects', 'Platform Engineers'],
-  "externalLinks" = '[{"label": "Architecture for Flow Canvas", "url": "https://susannekaiser.net/architecture-for-flow-canvas/"}, {"label": "Video Introduction", "url": "https://youtu.be/Mm0ctgk-uIM?feature=shared"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Architecture for Flow Canvas", "url": "https://susannekaiser.net/architecture-for-flow-canvas/", "description": "Interactive canvas and toolkit"},
+    {"label": "Video Introduction", "url": "https://youtu.be/Mm0ctgk-uIM?feature=shared", "description": "Watch the foundational concepts explained"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'architecture-for-flow';
 
@@ -356,17 +321,13 @@ It's a simple yet powerful tool to:
 - Structure conversations with platform teams and its users
 - Identify gaps in the platform services in a broader sense
 - Make platform capabilities transparent to stakeholders
-- Align on platform improvements
-
-## Resources
-
-To get started, read the introduction article, it includes the canvas and the manual:
-
-- [Platform Enablement Services Canvas](https://www.linkedin.com/posts/tomslenders_platform-enablement-services-canvas-activity-7382067347148210176-FaUH) - Article with the canvas and manual$body$,
+- Align on platform improvements$body$,
   type = 'Canvas',
   "readTime" = '15 min read',
   "targetAudience" = ARRAY['Product managers', 'Service Designers', 'Platform Teams', 'Architects'],
-  "externalLinks" = '[{"label": "Platform Enablement Services Canvas", "url": "https://www.linkedin.com/posts/tomslenders_platform-enablement-services-canvas-activity-7382067347148210176-FaUH"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Platform Enablement Services Canvas", "url": "https://www.linkedin.com/posts/tomslenders_platform-enablement-services-canvas-activity-7382067347148210176-FaUH", "description": "Article with the canvas and manual"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'pe-enablement-services-canvas';
 
@@ -379,18 +340,14 @@ SET
 
 An overview of a typical platform landscape with several tool examples.
 
-While not a full reference architecture, it does provide insights in several tools that typically are provided within an enterprise and its platforms.
-
-## Resources
-
-To get started, find the overview here:
-
-- [Platform tooling landscape](https://platformengineering.org/platform-tooling) - The landscape overview itself
-- [Platformengineering.org](https://platformengineering.org) - The community behind with useful in depth resources$body$,
+While not a full reference architecture, it does provide insights in several tools that typically are provided within an enterprise and its platforms.$body$,
   type = 'Architecture',
   "readTime" = '10 min read',
   "targetAudience" = ARRAY['Platform Engineers', 'Architects', 'Product managers'],
-  "externalLinks" = '[{"label": "Platform tooling landscape", "url": "https://platformengineering.org/platform-tooling"}, {"label": "Platformengineering.org", "url": "https://platformengineering.org"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Platform tooling landscape", "url": "https://platformengineering.org/platform-tooling", "description": "The landscape overview itself"},
+    {"label": "Platformengineering.org", "url": "https://platformengineering.org", "description": "The community behind with useful in depth resources"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'platform-tooling-landscape';
 
@@ -425,25 +382,20 @@ The DevEx framework is the only framework in this list that has a very explicit 
 
 ### DX Core 4 and ESSP
 
-Both DX Core 4 and Github Engineering System Success Playbook (ESSP) are relatively new (end of 2024 and early 2025). Both frameworks try to provide a way to combine insights from the other frameworks into a more holistic approach. Also, both have more explicit focus on executives, which is a very valuable addition missing in the others. While both frameworks seem to be based on thorough research, they are releatively new and we haven't used them. Therefore, we are hesitant to wholeheartedly recommend them at this point in time.
-
-## Resources
-
-The first resource is an article with many more details on all five metric frameworks and it includes more links. We list a few of direct links to the three first frameworks as well:
-
-- [Engineering Metrics Frameworks: DORA, DevEx, SPACE, DX Core 4, ESSP Comparison](https://www.lotharschulz.info/2025/05/04/engineering-metrics-frameworks-dora-devex-space-dx-core-4-essp-comparison/)
-- [DORA](https://dora.dev/research/) - Good starting point for generic productivity metrics
-- [SPACE](https://queue.acm.org/detail.cfm?id=3454124) - Framework for generic productivity metrics
-- [DevEx metrics](https://shipyard.build/blog/devex-framework/) - Metrics more specific to platform engineering$body$,
+Both DX Core 4 and Github Engineering System Success Playbook (ESSP) are relatively new (end of 2024 and early 2025). Both frameworks try to provide a way to combine insights from the other frameworks into a more holistic approach. Also, both have more explicit focus on executives, which is a very valuable addition missing in the others. While both frameworks seem to be based on thorough research, they are releatively new and we haven't used them. Therefore, we are hesitant to wholeheartedly recommend them at this point in time.$body$,
   type = 'Framework Article',
   "readTime" = '15 min read',
   "targetAudience" = ARRAY['Product managers', 'Platform teams', 'Platform leaders'],
-  "externalLinks" = '[{"label": "Engineering Metrics Frameworks: DORA, DevEx, SPACE, DX Core 4, ESSP Comparison", "url": "https://www.lotharschulz.info/2025/05/04/engineering-metrics-frameworks-dora-devex-space-dx-core-4-essp-comparison/"}, {"label": "DORA", "url": "https://dora.dev/research/"}, {"label": "SPACE", "url": "https://queue.acm.org/detail.cfm?id=3454124"}, {"label": "DevEx metrics", "url": "https://shipyard.build/blog/devex-framework/"}]'::jsonb,
+  "externalLinks" = '[
+    {"label": "Engineering Metrics Frameworks: DORA, DevEx, SPACE, DX Core 4, ESSP Comparison", "url": "https://www.lotharschulz.info/2025/05/04/engineering-metrics-frameworks-dora-devex-space-dx-core-4-essp-comparison/", "description": "Article with many more details on all five metric frameworks"},
+    {"label": "DORA", "url": "https://dora.dev/research/", "description": "Good starting point for generic productivity metrics"},
+    {"label": "SPACE", "url": "https://queue.acm.org/detail.cfm?id=3454124", "description": "Framework for generic productivity metrics"},
+    {"label": "DevEx metrics", "url": "https://shipyard.build/blog/devex-framework/", "description": "Metrics more specific to platform engineering"}
+  ]'::jsonb,
   "updatedAt" = CURRENT_TIMESTAMP
 WHERE slug = 'pe-metrics-overview';
 
--- platform-engineering-tool-map does not exist on the original website
--- Set it to DRAFT
+-- platform-engineering-tool-map does not exist on the original website — keep as DRAFT
 UPDATE "Resource"
 SET
   status = 'DRAFT',
@@ -453,6 +405,8 @@ WHERE slug = 'platform-engineering-tool-map';
 -- =============================================================================
 -- VERIFICATION
 -- =============================================================================
-SELECT slug, title, status, type, "readTime", length(body) as body_length, array_length("targetAudience", 1) as audience_count
+SELECT slug, title, status, type, "readTime", length(body) as body_length,
+       array_length("targetAudience", 1) as audience_count,
+       jsonb_array_length("externalLinks") as link_count
 FROM "Resource"
 ORDER BY status, slug;

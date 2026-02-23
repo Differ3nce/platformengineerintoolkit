@@ -9,10 +9,3 @@ The Architecture for Flow Canvas, created by Susanne Kaiser, provides guidance f
 - Support decision-making in complex, fast-changing environments
 
 Note that the approach has similarities with User needs mapping, but has a broader and more thorough scope.
-
-## Resources
-
-To get started with Architecture for Flow, explore these resources:
-
-- [Architecture for Flow Canvas](https://susannekaiser.net/architecture-for-flow-canvas/) - Interactive canvas and toolkit
-- [Video Introduction](https://youtu.be/Mm0ctgk-uIM?feature=shared) - Watch the foundational concepts explained

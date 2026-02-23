@@ -10,6 +10,7 @@ import type { Metadata } from "next";
 interface ExternalLink {
   label: string;
   url: string;
+  description?: string;
 }
 
 interface ResourcePageProps {
@@ -143,13 +144,13 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
         <MarkdownContent content={resource.body} />
       </article>
 
-      {/* External Links / Further Reading */}
+      {/* Resources */}
       {externalLinks.length > 0 && (
         <section className="mb-12 rounded-lg border border-border bg-card p-6">
           <h2 className="mb-4 text-lg font-semibold text-foreground">
-            Further Reading
+            Resources
           </h2>
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {externalLinks.map((link, index) => (
               <li key={index}>
                 <a
@@ -160,6 +161,11 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
                 >
                   {link.label} &rarr;
                 </a>
+                {link.description && (
+                  <p className="mt-0.5 text-sm text-muted-foreground">
+                    {link.description}
+                  </p>
+                )}
               </li>
             ))}
           </ul>

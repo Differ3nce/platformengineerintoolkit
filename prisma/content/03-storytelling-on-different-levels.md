@@ -12,7 +12,3 @@ In an IT landscape of a few thousand people, getting things done often felt like
 - Leverage industry knowledge
 - Involve line management
 - Repeat your story 10x more than you think is necessary
-
-## Resources
-
-[Unlocking Flow: Combining Team Topologies and Platform Engineering at ASML IT](https://www.youtube.com/watch?v=UuY9VREki40&t=3s)

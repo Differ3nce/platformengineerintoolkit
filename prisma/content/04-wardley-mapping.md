@@ -22,22 +22,6 @@ Use Wardley maps for platform engineering to:
 - Understand competitive dynamics in your technology space
 - Guide investment decisions and resource allocation
 
-## Learning Resources
-
-**Free Book:**
-
-- [Learn Wardley Mapping](https://learnwardleymapping.com/) - Complete online resource
-- [Free Wardley Mapping Book](https://learnwardleymapping.com/book/) - Comprehensive guide
-
-## Simon Wardley Video Series
-
-**Essential viewing for understanding Wardley Maps:**
-
-- [Part 1: How and why to map your business](https://www.youtube.com/watch?v=KkePAhnkHeg) - Introduction to mapping concepts
-- [Part 2: How to spot patterns](https://www.youtube.com/watch?v=xsDT7L-tARs) - Identifying strategic patterns
-- [Part 3: How to anticipate change](https://www.youtube.com/watch?v=58iLrw6-4x4) - Predicting evolution
-- [Part 4: How to use doctrine and gameplay](https://www.youtube.com/watch?v=gPDVA6uVAlU) - Strategic principles and tactics
-
 ## Getting Started
 
 Begin your Wardley mapping journey:

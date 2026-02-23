@@ -1,5 +1,3 @@
 ## PlatformOps – Platform Services Landscape Canvas
 
 Understanding what platforms exist, what they offer and how they're perceived—is the first step towards improving at Enteprise level. The **Platform Services Landscape Canvas** helps teams map and discuss the services provided by internal platforms (or platform-like functions) in a simple, visual way. It's designed to spark shared understanding across roles, reveal gaps or overlaps, and provide a common base for further analysis, planning and improvement discussions. Ideal for quick, collaborative workshops (30–60 minutes) that bring platform, product, and operations perspectives together.
-
-**Explore the canvas:** [Summary, downloadable PDF, and guide](https://valuecraftstudio.com/platformops-landscape)

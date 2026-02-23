@@ -9,11 +9,3 @@ User needs mapping, created by Rich Allen, serves as a quick way to start with W
 - Determine whether the current team setup can be improved by optimizing team boundaries
 
 Note that the approach has similarities with Architecture for flow.
-
-## Resources
-
-To get started with User needs mapping, explore these resources:
-
-- [User needs mapping](https://userneedsmapping.com/) - Canvas and instructions
-- [From Inside Out to Outside-In: Aligning Teams Around What Matters](https://www.youtube.com/watch?v=UYbTZzvk_C0) - Overview presentation
-- [Exploring Team and Service Boundaries with User Needs Mapping](https://teamtopologies.com/key-concepts-content/exploring-team-and-service-boundaries-with-user-needs-mapping) - Overview article

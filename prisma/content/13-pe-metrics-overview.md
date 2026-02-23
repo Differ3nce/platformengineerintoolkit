@@ -25,12 +25,3 @@ The DevEx framework is the only framework in this list that has a very explicit 
 ### DX Core 4 and ESSP
 
 Both DX Core 4 and Github Engineering System Success Playbook (ESSP) are relatively new (end of 2024 and early 2025). Both frameworks try to provide a way to combine insights from the other frameworks into a more holistic approach. Also, both have more explicit focus on executives, which is a very valuable addition missing in the others. While both frameworks seem to be based on thorough research, they are releatively new and we haven't used them. Therefore, we are hesitant to wholeheartedly recommend them at this point in time.
-
-## Resources
-
-The first resource is an article with many more details on all five metric frameworks and it includes more links. We list a few of direct links to the three first frameworks as well:
-
-- [Engineering Metrics Frameworks: DORA, DevEx, SPACE, DX Core 4, ESSP Comparison](https://www.lotharschulz.info/2025/05/04/engineering-metrics-frameworks-dora-devex-space-dx-core-4-essp-comparison/)
-- [DORA](https://dora.dev/research/) - Good starting point for generic productivity metrics
-- [SPACE](https://queue.acm.org/detail.cfm?id=3454124) - Framework for generic productivity metrics
-- [DevEx metrics](https://shipyard.build/blog/devex-framework/) - Metrics more specific to platform engineering

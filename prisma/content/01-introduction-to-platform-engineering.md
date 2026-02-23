@@ -27,10 +27,3 @@ Technology and tooling are important, but success depends just as much — if no
 - **Platform teams** with the right structure, flow-oriented ways of working, and mindset.
 
 To assess these capabilities, explore the **Platform Engineering Maturity Models** under the *Starting & Progressing* section of this site.
-
-## Further Reading
-
-- [Platform Engineering Guide | Microsoft Learn](https://learn.microsoft.com/en-us/platform-engineering/)
-- [Google Cloud: Platform Engineering](https://cloud.google.com/solutions/platform-engineering)
-- [AWS Platform Perspective](https://docs.aws.amazon.com/prescriptive-guidance/latest/aws-caf-platform-perspective/platform-eng.html)
-- [PlatformEngineering.org: What is Platform Engineering](https://platformengineering.org/blog/what-is-platform-engineering)

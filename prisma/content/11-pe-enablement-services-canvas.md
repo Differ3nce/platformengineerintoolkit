@@ -14,9 +14,3 @@ It's a simple yet powerful tool to:
 - Identify gaps in the platform services in a broader sense
 - Make platform capabilities transparent to stakeholders
 - Align on platform improvements
-
-## Resources
-
-To get started, read the introduction article, it includes the canvas and the manual:
-
-- [Platform Enablement Services Canvas](https://www.linkedin.com/posts/tomslenders_platform-enablement-services-canvas-activity-7382067347148210176-FaUH) - Article with the canvas and manual
