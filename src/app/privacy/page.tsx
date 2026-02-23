@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           <h2 className="mb-3 text-xl font-semibold text-foreground">
             Cookies and tracking
           </h2>
-          <p className="mb-3">We use two categories of cookies:</p>
+          <p className="mb-3">We use three categories of cookies:</p>
           <div className="space-y-4">
             <div className="rounded-lg border border-border p-4">
               <h3 className="mb-1 font-semibold text-foreground">
@@ -51,6 +51,28 @@ export default function PrivacyPage() {
                 third-party cookies, does not track you across sites, and does
                 not sell data. Page view data is aggregated and anonymised.
                 These cookies are only set after you accept analytics cookies.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border p-4">
+              <h3 className="mb-1 font-semibold text-foreground">
+                YouTube — requires consent
+              </h3>
+              <p className="text-sm">
+                The homepage contains an embedded YouTube video hosted by
+                Google. YouTube sets its own cookies when the video is played,
+                which may be used to personalise ads and track viewing behaviour
+                across Google services. The video will not load until you
+                explicitly click &ldquo;Accept YouTube cookies &amp; play&rdquo;.
+                You can review Google&apos;s privacy practices at{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-foreground"
+                >
+                  policies.google.com/privacy
+                </a>
+                .
               </p>
             </div>
           </div>
