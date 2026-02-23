@@ -67,6 +67,27 @@ export default async function HomePage() {
         </div>
       </div>
 
+      {/* Video Section */}
+      <div className="mb-16 text-center">
+        <h2 className="mb-2 text-2xl font-semibold text-foreground">
+          Watch the video
+        </h2>
+        <p className="mb-6 text-muted-foreground">
+          A short introduction to the Platform Engineering Toolkit
+        </p>
+        <div className="mx-auto max-w-3xl overflow-hidden rounded-xl border border-border shadow-card">
+          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+            <iframe
+              src="https://www.youtube.com/embed/8rONAJ79mNI"
+              title="Platform Engineering Toolkit introduction"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Navigation Cards Grid */}
       {categories.length > 0 && (
         <div className="mx-auto mb-16 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
