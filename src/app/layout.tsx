@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ConsentProvider from "@/components/layout/ConsentProvider";
 import "./globals.css";
 
 export const dynamic = "force-dynamic";
@@ -67,7 +67,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
-        <Analytics />
+        <ConsentProvider />
       </body>
     </html>
   );
