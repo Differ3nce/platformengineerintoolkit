@@ -100,7 +100,6 @@ model Resource {
   slug           String         @unique
   description    String
   body           String
-  type           String
   status         ResourceStatus @default(DRAFT)
   readTime       String?
   targetAudience String[]

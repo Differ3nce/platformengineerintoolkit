@@ -86,31 +86,42 @@ async function main() {
   console.log(`  ✓ Category: ${startingAndProgressing.name}`);
 
   // ─── Tags ─────────────────────────────────────────────────────────────────
-  const tagNames = [
-    "platform-engineering",
-    "devops",
-    "developer-experience",
-    "strategy",
-    "tooling",
-    "architecture",
-    "team-topologies",
-    "maturity-model",
-    "workshop",
-    "canvas",
-    "methodology",
-    "adoption",
-    "funding",
-    "communication",
+  // Format/type tags (what kind of resource it is)
+  const formatTagNames = [
+    { slug: "article", name: "Article" },
+    { slug: "book", name: "Book" },
+    { slug: "canvas", name: "Canvas" },
+    { slug: "framework", name: "Framework" },
+    { slug: "guide", name: "Guide" },
+    { slug: "maturity-model", name: "Maturity Model" },
+    { slug: "methodology", name: "Methodology" },
+    { slug: "method", name: "Method" },
+    { slug: "strategy", name: "Strategy" },
+    { slug: "video-series", name: "Video series" },
+    { slug: "workshop", name: "Workshop" },
   ];
+  // Topic tags (what it is about)
+  const topicTagNames = [
+    { slug: "platform-engineering", name: "platform engineering" },
+    { slug: "devops", name: "devops" },
+    { slug: "developer-experience", name: "developer experience" },
+    { slug: "tooling", name: "tooling" },
+    { slug: "architecture", name: "architecture" },
+    { slug: "team-topologies", name: "team topologies" },
+    { slug: "adoption", name: "adoption" },
+    { slug: "funding", name: "funding" },
+    { slug: "communication", name: "communication" },
+  ];
+  const tagNames = [...formatTagNames, ...topicTagNames];
 
   const tags: Record<string, { id: string }> = {};
-  for (const name of tagNames) {
+  for (const { slug, name } of tagNames) {
     const tag = await prisma.tag.upsert({
-      where: { slug: name },
+      where: { slug },
       update: {},
-      create: { name: name.replace(/-/g, " "), slug: name },
+      create: { name, slug },
     });
-    tags[name] = tag;
+    tags[slug] = tag;
   }
   console.log(`  ✓ Created ${tagNames.length} tags`);
 
@@ -148,7 +159,6 @@ A successful platform typically includes:
 ## Getting Started
 
 Begin your platform engineering journey by understanding your organization's specific needs and pain points. Focus on solving real problems rather than building technology for its own sake.`,
-      type: "Article",
       status: "PUBLISHED",
       readTime: "8 min read",
       targetAudience: ["Developers", "Engineering Managers"],
@@ -156,6 +166,7 @@ Begin your platform engineering journey by understanding your organization's spe
       authorId: tom.id,
       tags: {
         connect: [
+          { slug: "article" },
           { slug: "platform-engineering" },
           { slug: "devops" },
           { slug: "developer-experience" },
@@ -203,7 +214,6 @@ Create a roadmap that prioritizes value delivery:
 - Incremental feature rollout
 - Feedback loops and iteration
 - Success measurement and communication`,
-      type: "Workshop",
       status: "PUBLISHED",
       readTime: "45 min workshop",
       targetAudience: ["CTOs", "Platform Leaders"],
@@ -211,9 +221,9 @@ Create a roadmap that prioritizes value delivery:
       authorId: gielen.id,
       tags: {
         connect: [
+          { slug: "workshop" },
           { slug: "platform-engineering" },
           { slug: "strategy" },
-          { slug: "workshop" },
         ],
       },
     },
@@ -261,7 +271,6 @@ Navigate the complex ecosystem of platform engineering tools with this comprehen
 - **Backstage:** Developer portal framework by Spotify
 - **Port:** Developer portal platform
 - **Cortex:** Internal developer portal`,
-      type: "Canvas",
       status: "PUBLISHED",
       readTime: "Interactive guide",
       targetAudience: ["Platform Engineers", "DevOps Teams"],
@@ -269,9 +278,9 @@ Navigate the complex ecosystem of platform engineering tools with this comprehen
       authorId: andrea.id,
       tags: {
         connect: [
+          { slug: "canvas" },
           { slug: "platform-engineering" },
           { slug: "tooling" },
-          { slug: "canvas" },
         ],
       },
     },
@@ -314,7 +323,6 @@ These three tools complement each other by addressing different aspects of socio
 
 - [Canvas & Resources](https://susannekaiser.net/architecture-for-flow-canvas/)
 - [Video Introduction](https://youtu.be/Mm0ctgk-uIM?feature=shared)`,
-      type: "Framework",
       status: "PUBLISHED",
       readTime: "15 min read",
       targetAudience: ["System Architects", "Platform Engineers"],
@@ -326,6 +334,7 @@ These three tools complement each other by addressing different aspects of socio
       authorId: gielen.id,
       tags: {
         connect: [
+          { slug: "framework" },
           { slug: "architecture" },
           { slug: "team-topologies" },
           { slug: "strategy" },
@@ -374,7 +383,6 @@ Culture, skills, and governance. Is the organization structured to support and s
 ## External Resources
 
 - [CNCF Maturity Model](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/#model-table)`,
-      type: "Maturity Model",
       status: "PUBLISHED",
       readTime: "10 min read",
       targetAudience: ["Platform Leaders", "CTOs"],
@@ -403,14 +411,17 @@ Culture, skills, and governance. Is the organization structured to support and s
       description:
         "Comprehensive overview of the tools and technologies that make up a modern platform engineering ecosystem.",
       body: "Content coming soon.",
-      type: "Guide",
       status: "COMING_SOON",
       readTime: "15 min read",
       targetAudience: ["Platform Engineers", "DevOps Teams"],
       categoryId: whereToStart.id,
       authorId: tom.id,
       tags: {
-        connect: [{ slug: "tooling" }, { slug: "platform-engineering" }],
+        connect: [
+          { slug: "guide" },
+          { slug: "tooling" },
+          { slug: "platform-engineering" },
+        ],
       },
     },
   });
@@ -425,14 +436,16 @@ Culture, skills, and governance. Is the organization structured to support and s
       description:
         "Step-by-step methodology for initiating and launching your platform engineering transformation journey.",
       body: "Content coming soon.",
-      type: "Methodology",
       status: "COMING_SOON",
       readTime: "20 min read",
       targetAudience: ["Platform Leaders", "Engineering Managers"],
       categoryId: whereToStart.id,
       authorId: gielen.id,
       tags: {
-        connect: [{ slug: "methodology" }, { slug: "platform-engineering" }],
+        connect: [
+          { slug: "methodology" },
+          { slug: "platform-engineering" },
+        ],
       },
     },
   });
@@ -450,14 +463,16 @@ Culture, skills, and governance. Is the organization structured to support and s
       description:
         "Visual framework for understanding and planning stakeholder engagement in platform engineering initiatives.",
       body: "Content coming soon.",
-      type: "Canvas",
       status: "COMING_SOON",
       readTime: "30 min workshop",
       targetAudience: ["Product Managers", "Platform Leaders"],
       categoryId: startingAndProgressing.id,
       authorId: gielen.id,
       tags: {
-        connect: [{ slug: "canvas" }, { slug: "adoption" }],
+        connect: [
+          { slug: "canvas" },
+          { slug: "adoption" },
+        ],
       },
     },
   });
@@ -472,14 +487,16 @@ Culture, skills, and governance. Is the organization structured to support and s
       description:
         "Map and design the services your platform will provide to enable development teams effectively.",
       body: "Content coming soon.",
-      type: "Canvas",
       status: "COMING_SOON",
       readTime: "30 min workshop",
       targetAudience: ["Platform Engineers", "Service Designers"],
       categoryId: startingAndProgressing.id,
       authorId: andrea.id,
       tags: {
-        connect: [{ slug: "canvas" }, { slug: "developer-experience" }],
+        connect: [
+          { slug: "canvas" },
+          { slug: "developer-experience" },
+        ],
       },
     },
   });
@@ -494,14 +511,17 @@ Culture, skills, and governance. Is the organization structured to support and s
       description:
         "Strategic approaches to securing sustainable funding and business case development for platform initiatives.",
       body: "Content coming soon.",
-      type: "Framework",
       status: "COMING_SOON",
       readTime: "15 min read",
       targetAudience: ["Platform Leaders", "Finance Teams"],
       categoryId: startingAndProgressing.id,
       authorId: tom.id,
       tags: {
-        connect: [{ slug: "funding" }, { slug: "strategy" }],
+        connect: [
+          { slug: "framework" },
+          { slug: "funding" },
+          { slug: "strategy" },
+        ],
       },
     },
   });
@@ -516,7 +536,6 @@ Culture, skills, and governance. Is the organization structured to support and s
       description:
         "Systematic approach to understanding and documenting the needs of developers and teams using your platform.",
       body: "Content coming soon.",
-      type: "Method",
       status: "COMING_SOON",
       readTime: "20 min read",
       targetAudience: ["Product Managers", "UX Designers"],
@@ -524,6 +543,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       authorId: andrea.id,
       tags: {
         connect: [
+          { slug: "method" },
           { slug: "developer-experience" },
           { slug: "methodology" },
         ],
@@ -541,14 +561,17 @@ Culture, skills, and governance. Is the organization structured to support and s
       description:
         "Effective communication strategies for platform engineering across organizational levels and stakeholders.",
       body: "Content coming soon.",
-      type: "Guide",
       status: "COMING_SOON",
       readTime: "12 min read",
       targetAudience: ["Platform Leaders", "Communication Teams"],
       categoryId: startingAndProgressing.id,
       authorId: gielen.id,
       tags: {
-        connect: [{ slug: "communication" }, { slug: "adoption" }],
+        connect: [
+          { slug: "guide" },
+          { slug: "communication" },
+          { slug: "adoption" },
+        ],
       },
     },
   });
@@ -565,14 +588,16 @@ Culture, skills, and governance. Is the organization structured to support and s
       description:
         "Strategies for identifying, engaging, and building relationships with key sponsors and assembling your core platform team.",
       body: "Content coming soon.",
-      type: "Strategy",
       status: "COMING_SOON",
       readTime: "15 min read",
       targetAudience: ["Platform Leaders", "HR Partners"],
       categoryId: startingAndProgressing.id,
       authorId: tom.id,
       tags: {
-        connect: [{ slug: "adoption" }, { slug: "strategy" }],
+        connect: [
+          { slug: "strategy" },
+          { slug: "adoption" },
+        ],
       },
     },
   });

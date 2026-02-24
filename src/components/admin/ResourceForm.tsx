@@ -27,7 +27,6 @@ interface ResourceFormProps {
     title: string;
     description: string;
     body: string;
-    type: string;
     status: string;
     readTime: string | null;
     targetAudience: string[];
@@ -37,19 +36,6 @@ interface ResourceFormProps {
     tagIds: string[];
   };
 }
-
-const RESOURCE_TYPES = [
-  "Article",
-  "Tool",
-  "Framework",
-  "Canvas",
-  "Workshop",
-  "Video",
-  "Book",
-  "Guide",
-  "Maturity Model",
-  "Change Approach",
-];
 
 export default function ResourceForm({
   categories,
@@ -62,7 +48,6 @@ export default function ResourceForm({
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [description, setDescription] = useState(initialData?.description ?? "");
   const [bodyContent, setBodyContent] = useState(initialData?.body ?? "");
-  const [type, setType] = useState(initialData?.type ?? "Article");
   const [status, setStatus] = useState(initialData?.status ?? "DRAFT");
   const [readTime, setReadTime] = useState(initialData?.readTime ?? "");
   const [audienceInput, setAudienceInput] = useState(
@@ -121,7 +106,6 @@ export default function ResourceForm({
       title,
       description,
       bodyContent,
-      type,
       status,
       readTime: readTime || null,
       targetAudience,
@@ -225,25 +209,8 @@ export default function ResourceForm({
         </p>
       </div>
 
-      {/* Type + Status + Read Time row */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">
-            Type *
-          </label>
-          <select
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          >
-            {RESOURCE_TYPES.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </div>
-
+      {/* Status + Read Time row */}
+      <div className="grid gap-4 md:grid-cols-2">
         <div>
           <label className="mb-1 block text-sm font-medium text-gray-700">
             Status

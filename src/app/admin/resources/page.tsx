@@ -6,6 +6,7 @@ export default async function AdminResourcesPage() {
     orderBy: { updatedAt: "desc" },
     include: {
       category: { select: { name: true } },
+      tags: { select: { name: true } },
       _count: { select: { likes: true, comments: true } },
     },
   });
@@ -42,7 +43,7 @@ export default async function AdminResourcesPage() {
                   Category
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-                  Type
+                  Tags
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
                   Status
@@ -67,7 +68,7 @@ export default async function AdminResourcesPage() {
                     {resource.category.name}
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-500">
-                    {resource.type}
+                    {resource.tags.map((t) => t.name).join(", ")}
                   </td>
                   <td className="px-4 py-3">
                     <span

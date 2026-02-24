@@ -42,6 +42,7 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
     include: {
       category: true,
       author: { select: { name: true, image: true } },
+      tags: { select: { id: true, name: true } },
       _count: { select: { likes: true, comments: true } },
     },
   });
@@ -84,14 +85,14 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
 
       {/* Header */}
       <header className="mb-8">
-        {/* Type tags + read time */}
+        {/* Tags + read time */}
         <div className="mb-4 flex flex-wrap items-center gap-2">
-          {resource.type.split(",").map((tag) => tag.trim()).filter(Boolean).map((tag) => (
+          {resource.tags.map((tag) => (
             <span
-              key={tag}
+              key={tag.id}
               className="inline-block rounded-full bg-secondary px-3 py-0.5 text-xs font-medium text-secondary-foreground"
             >
-              {tag}
+              {tag.name}
             </span>
           ))}
           {resource.readTime && (

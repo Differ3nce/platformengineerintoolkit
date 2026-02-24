@@ -30,7 +30,6 @@ export async function PUT(
           slug: slugify(submission.title),
           description: submission.description,
           body: submission.body ?? "",
-          type: submission.type,
           status: "DRAFT",
           categoryId,
           externalLinks: submission.externalUrl

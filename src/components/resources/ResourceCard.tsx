@@ -3,7 +3,7 @@ import Link from "next/link";
 interface ResourceCardProps {
   title: string;
   description: string;
-  type: string;
+  tags: { id: string; name: string }[];
   readTime: string | null;
   targetAudience: string[];
   slug: string;
@@ -16,7 +16,7 @@ interface ResourceCardProps {
 export default function ResourceCard({
   title,
   description,
-  type,
+  tags,
   readTime,
   targetAudience,
   slug,
@@ -35,14 +35,14 @@ export default function ResourceCard({
           : "hover:shadow-lg hover:-translate-y-1 hover:bg-card-hover"
       }`}
     >
-      {/* Type tags + read time */}
+      {/* Tags + read time */}
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        {type.split(",").map((tag) => tag.trim()).filter(Boolean).map((tag) => (
+        {tags.map((tag) => (
           <span
-            key={tag}
+            key={tag.id}
             className="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
           >
-            {tag}
+            {tag.name}
           </span>
         ))}
         {readTime && (

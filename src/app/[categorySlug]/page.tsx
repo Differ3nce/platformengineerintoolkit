@@ -36,6 +36,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         },
         orderBy: [{ status: "asc" }, { createdAt: "asc" }],
         include: {
+          tags: { select: { id: true, name: true } },
           _count: { select: { likes: true, comments: true } },
         },
       },
@@ -78,7 +79,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               key={resource.id}
               title={resource.title}
               description={resource.description}
-              type={resource.type}
+              tags={resource.tags}
               readTime={resource.readTime}
               targetAudience={resource.targetAudience}
               slug={resource.slug}
