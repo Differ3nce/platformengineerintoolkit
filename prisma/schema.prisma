@@ -29,7 +29,7 @@ model User {
   comments    Comment[]
   submissions Submission[] @relation("SubmittedBy")
   reviewed    Submission[] @relation("ReviewedBy")
-  resources   Resource[]   @relation("AuthoredBy")
+  authoredResources Resource[] @relation("AuthoredBy")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -107,8 +107,7 @@ model Resource {
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
-  author     User?    @relation("AuthoredBy", fields: [authorId], references: [id])
-  authorId   String?
+  authors    User[]   @relation("AuthoredBy")
   tags       Tag[]
   likes      Like[]
   comments   Comment[]

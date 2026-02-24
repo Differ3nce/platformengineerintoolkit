@@ -13,6 +13,11 @@ interface Tag {
   name: string;
 }
 
+interface Author {
+  id: string;
+  name: string | null;
+}
+
 interface ExternalLink {
   label: string;
   url: string;
@@ -22,6 +27,7 @@ interface ExternalLink {
 interface ResourceFormProps {
   categories: Category[];
   tags: Tag[];
+  authors: Author[];
   initialData?: {
     id: string;
     title: string;
@@ -33,12 +39,14 @@ interface ResourceFormProps {
     externalLinks: ExternalLink[];
     categoryId: string;
     tagIds: string[];
+    authorIds: string[];
   };
 }
 
 export default function ResourceForm({
   categories,
   tags,
+  authors,
   initialData,
 }: ResourceFormProps) {
   const router = useRouter();
@@ -56,6 +64,9 @@ export default function ResourceForm({
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>(
     initialData?.tagIds ?? []
   );
+  const [selectedAuthorIds, setSelectedAuthorIds] = useState<string[]>(
+    initialData?.authorIds ?? []
+  );
   const [externalLinks, setExternalLinks] = useState<ExternalLink[]>(
     initialData?.externalLinks ?? [{ label: "", url: "" }]
   );
@@ -67,6 +78,14 @@ export default function ResourceForm({
       prev.includes(tagId)
         ? prev.filter((id) => id !== tagId)
         : [...prev, tagId]
+    );
+  }
+
+  function toggleAuthor(authorId: string) {
+    setSelectedAuthorIds((prev) =>
+      prev.includes(authorId)
+        ? prev.filter((id) => id !== authorId)
+        : [...prev, authorId]
     );
   }
 
@@ -110,6 +129,7 @@ export default function ResourceForm({
       externalLinks: filteredLinks,
       categoryId,
       tagIds: selectedTagIds,
+      authorIds: selectedAuthorIds,
     };
 
     try {
@@ -241,6 +261,31 @@ export default function ResourceForm({
           ))}
         </select>
       </div>
+
+      {/* Authors */}
+      {authors.length > 0 && (
+        <div>
+          <label className="mb-2 block text-sm font-medium text-gray-700">
+            Authors
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {authors.map((author) => (
+              <button
+                key={author.id}
+                type="button"
+                onClick={() => toggleAuthor(author.id)}
+                className={`rounded-full px-3 py-1 text-xs transition-colors ${
+                  selectedAuthorIds.includes(author.id)
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {author.name ?? author.id}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Target Audience */}
       <div>

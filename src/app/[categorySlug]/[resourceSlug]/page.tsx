@@ -41,7 +41,7 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
     where: { slug: resourceSlug },
     include: {
       category: true,
-      author: { select: { name: true, image: true } },
+      authors: { select: { id: true, name: true, image: true } },
       tags: { select: { id: true, name: true } },
       _count: { select: { likes: true, comments: true } },
     },
@@ -108,19 +108,23 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
           </p>
         )}
 
-        {/* Author */}
-        {resource.author && (
-          <div className="flex items-center gap-2">
-            {resource.author.image && (
-              <img
-                src={resource.author.image}
-                alt={resource.author.name ?? "Author"}
-                className="h-6 w-6 rounded-full"
-              />
-            )}
-            <span className="text-sm text-muted-foreground">
-              By {resource.author.name}
-            </span>
+        {/* Authors */}
+        {resource.authors.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <span>By</span>
+            {resource.authors.map((author, index) => (
+              <div key={author.id} className="flex items-center gap-1.5">
+                {index > 0 && <span>&amp;</span>}
+                {author.image && (
+                  <img
+                    src={author.image}
+                    alt={author.name ?? "Author"}
+                    className="h-5 w-5 rounded-full"
+                  />
+                )}
+                <span>{author.name}</span>
+              </div>
+            ))}
           </div>
         )}
       </header>

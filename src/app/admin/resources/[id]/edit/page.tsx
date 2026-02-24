@@ -9,19 +9,23 @@ interface EditResourcePageProps {
 export default async function EditResourcePage({ params }: EditResourcePageProps) {
   const { id } = await params;
 
-  const [resource, categories, tags] = await Promise.all([
+  const [resource, categories, tags, users] = await Promise.all([
     prisma.resource.findUnique({
       where: { id },
-      include: { tags: { select: { id: true } } },
+      include: {
+        tags: { select: { id: true } },
+        authors: { select: { id: true } },
+      },
     }),
     prisma.category.findMany({ orderBy: { displayOrder: "asc" } }),
     prisma.tag.findMany({ orderBy: { name: "asc" } }),
+    prisma.user.findMany({ orderBy: { name: "asc" } }),
   ]);
 
   if (!resource) notFound();
 
   const externalLinks = Array.isArray(resource.externalLinks)
-    ? (resource.externalLinks as { label: string; url: string }[])
+    ? (resource.externalLinks as { label: string; url: string; description?: string }[])
     : [];
 
   return (
@@ -32,6 +36,7 @@ export default async function EditResourcePage({ params }: EditResourcePageProps
       <ResourceForm
         categories={categories.map((c) => ({ id: c.id, name: c.name }))}
         tags={tags.map((t) => ({ id: t.id, name: t.name }))}
+        authors={users.map((u) => ({ id: u.id, name: u.name }))}
         initialData={{
           id: resource.id,
           title: resource.title,
@@ -43,6 +48,7 @@ export default async function EditResourcePage({ params }: EditResourcePageProps
           externalLinks,
           categoryId: resource.categoryId,
           tagIds: resource.tags.map((t) => t.id),
+          authorIds: resource.authors.map((a) => a.id),
         }}
       />
     </div>

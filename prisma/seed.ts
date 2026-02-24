@@ -148,7 +148,7 @@ Begin your platform engineering journey by understanding your organization's spe
       status: "PUBLISHED",
       targetAudience: ["Developers", "Engineering Managers"],
       categoryId: whatAndWhy.id,
-      authorId: tom.id,
+      authors: { connect: [{ id: tom.id }] },
       tags: {
         connect: [
           { slug: "article" },
@@ -199,7 +199,7 @@ Create a roadmap that prioritizes value delivery:
       status: "PUBLISHED",
       targetAudience: ["CTOs", "Platform Leaders"],
       categoryId: whatAndWhy.id,
-      authorId: gielen.id,
+      authors: { connect: [{ id: gielen.id }] },
       tags: {
         connect: [
           { slug: "article" },
@@ -253,7 +253,7 @@ Navigate the complex ecosystem of platform engineering tools with this comprehen
       status: "PUBLISHED",
       targetAudience: ["Platform Engineers", "DevOps Teams"],
       categoryId: whatAndWhy.id,
-      authorId: andrea.id,
+      authors: { connect: [{ id: andrea.id }] },
       tags: {
         connect: [
           { slug: "tool" },
@@ -306,7 +306,7 @@ These three tools complement each other by addressing different aspects of socio
         video: "https://youtu.be/Mm0ctgk-uIM?feature=shared",
       },
       categoryId: whereToStart.id,
-      authorId: gielen.id,
+      authors: { connect: [{ id: gielen.id }] },
       tags: {
         connect: [
           { slug: "canvas" },
@@ -363,7 +363,7 @@ Culture, skills, and governance. Is the organization structured to support and s
         cncf: "https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/#model-table",
       },
       categoryId: whereToStart.id,
-      authorId: andrea.id,
+      authors: { connect: [{ id: andrea.id }] },
       tags: {
         connect: [
           { slug: "maturity-model" },
@@ -385,7 +385,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       status: "COMING_SOON",
       targetAudience: ["Platform Engineers", "DevOps Teams"],
       categoryId: whereToStart.id,
-      authorId: tom.id,
+      authors: { connect: [{ id: tom.id }] },
       tags: {
         connect: [
           { slug: "architecture" },
@@ -407,7 +407,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       status: "COMING_SOON",
       targetAudience: ["Platform Leaders", "Engineering Managers"],
       categoryId: whereToStart.id,
-      authorId: gielen.id,
+      authors: { connect: [{ id: gielen.id }] },
       tags: {
         connect: [
           { slug: "change-approach" },
@@ -432,7 +432,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       status: "COMING_SOON",
       targetAudience: ["Product Managers", "Platform Leaders"],
       categoryId: startingAndProgressing.id,
-      authorId: gielen.id,
+      authors: { connect: [{ id: gielen.id }] },
       tags: {
         connect: [
           { slug: "canvas" },
@@ -454,7 +454,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       status: "COMING_SOON",
       targetAudience: ["Platform Engineers", "Service Designers"],
       categoryId: startingAndProgressing.id,
-      authorId: andrea.id,
+      authors: { connect: [{ id: andrea.id }] },
       tags: {
         connect: [
           { slug: "canvas" },
@@ -476,7 +476,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       status: "COMING_SOON",
       targetAudience: ["Platform Leaders", "Finance Teams"],
       categoryId: startingAndProgressing.id,
-      authorId: tom.id,
+      authors: { connect: [{ id: tom.id }] },
       tags: {
         connect: [
           { slug: "workshop-tool" },
@@ -498,7 +498,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       status: "COMING_SOON",
       targetAudience: ["Product Managers", "UX Designers"],
       categoryId: startingAndProgressing.id,
-      authorId: andrea.id,
+      authors: { connect: [{ id: andrea.id }] },
       tags: {
         connect: [
           { slug: "workshop-tool" },
@@ -521,7 +521,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       status: "COMING_SOON",
       targetAudience: ["Platform Leaders", "Communication Teams"],
       categoryId: startingAndProgressing.id,
-      authorId: gielen.id,
+      authors: { connect: [{ id: gielen.id }] },
       tags: {
         connect: [
           { slug: "guide" },
@@ -545,7 +545,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       status: "COMING_SOON",
       targetAudience: ["Platform Leaders", "HR Partners"],
       categoryId: startingAndProgressing.id,
-      authorId: tom.id,
+      authors: { connect: [{ id: tom.id }] },
       tags: {
         connect: [
           { slug: "guide" },

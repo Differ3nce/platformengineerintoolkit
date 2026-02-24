@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     thumbnailUrl,
     externalLinks,
     categoryId,
-    authorId,
+    authorIds,
     tagIds,
   } = body;
 
@@ -30,12 +30,14 @@ export async function POST(request: NextRequest) {
       thumbnailUrl: thumbnailUrl || null,
       externalLinks: externalLinks ?? [],
       categoryId,
-      authorId: authorId || null,
+      authors: authorIds?.length
+        ? { connect: authorIds.map((id: string) => ({ id })) }
+        : undefined,
       tags: tagIds?.length
         ? { connect: tagIds.map((id: string) => ({ id })) }
         : undefined,
     },
-    include: { category: true, tags: true },
+    include: { category: true, tags: true, authors: true },
   });
 
   return NextResponse.json(resource, { status: 201 });

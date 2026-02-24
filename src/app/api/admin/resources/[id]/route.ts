@@ -17,7 +17,7 @@ export async function PUT(
     thumbnailUrl,
     externalLinks,
     categoryId,
-    authorId,
+    authorIds,
     tagIds,
   } = body;
 
@@ -33,12 +33,14 @@ export async function PUT(
       thumbnailUrl: thumbnailUrl || null,
       externalLinks: externalLinks ?? [],
       categoryId,
-      authorId: authorId || null,
+      authors: {
+        set: authorIds?.map((authorId: string) => ({ id: authorId })) ?? [],
+      },
       tags: {
         set: tagIds?.map((tagId: string) => ({ id: tagId })) ?? [],
       },
     },
-    include: { category: true, tags: true },
+    include: { category: true, tags: true, authors: true },
   });
 
   return NextResponse.json(resource);

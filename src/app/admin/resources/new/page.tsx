@@ -2,9 +2,10 @@ import { prisma } from "@/lib/prisma";
 import ResourceForm from "@/components/admin/ResourceForm";
 
 export default async function NewResourcePage() {
-  const [categories, tags] = await Promise.all([
+  const [categories, tags, users] = await Promise.all([
     prisma.category.findMany({ orderBy: { displayOrder: "asc" } }),
     prisma.tag.findMany({ orderBy: { name: "asc" } }),
+    prisma.user.findMany({ orderBy: { name: "asc" } }),
   ]);
 
   return (
@@ -13,6 +14,7 @@ export default async function NewResourcePage() {
       <ResourceForm
         categories={categories.map((c) => ({ id: c.id, name: c.name }))}
         tags={tags.map((t) => ({ id: t.id, name: t.name }))}
+        authors={users.map((u) => ({ id: u.id, name: u.name }))}
       />
     </div>
   );
