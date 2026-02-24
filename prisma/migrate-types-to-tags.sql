@@ -10,25 +10,30 @@
 -- Step 1: Upsert all format tags used on the original site (safe to re-run)
 INSERT INTO "Tag" (id, name, slug)
 VALUES
-  (gen_random_uuid(), 'Article',        'article'),
-  (gen_random_uuid(), 'Architecture',   'architecture'),
-  (gen_random_uuid(), 'Book',           'book'),
-  (gen_random_uuid(), 'Canvas',         'canvas'),
-  (gen_random_uuid(), 'Change Approach','change-approach'),
-  (gen_random_uuid(), 'Framework',      'framework'),
-  (gen_random_uuid(), 'Guide',          'guide'),
-  (gen_random_uuid(), 'Maturity model', 'maturity-model'),
-  (gen_random_uuid(), 'Tool',           'tool'),
-  (gen_random_uuid(), 'Video series',   'video-series'),
+  (gen_random_uuid(), 'Article',         'article'),
+  (gen_random_uuid(), 'Architecture',    'architecture'),
+  (gen_random_uuid(), 'Book',            'book'),
+  (gen_random_uuid(), 'Canvas',          'canvas'),
+  (gen_random_uuid(), 'Change Approach', 'change-approach'),
+  (gen_random_uuid(), 'Guide',           'guide'),
+  (gen_random_uuid(), 'Maturity model',  'maturity-model'),
+  (gen_random_uuid(), 'Tool',            'tool'),
   (gen_random_uuid(), 'Video Case Study','video-case-study'),
-  (gen_random_uuid(), 'Workshop tool',  'workshop-tool')
+  (gen_random_uuid(), 'Workshop tool',   'workshop-tool')
 ON CONFLICT (slug) DO NOTHING;
 
--- Step 2: Clear ALL existing tag links on all resources (clean slate)
+-- Step 2: Delete any tags not in the correct set (cleanup old/unused tags)
+DELETE FROM "Tag"
+WHERE slug NOT IN (
+  'article', 'architecture', 'book', 'canvas', 'change-approach',
+  'guide', 'maturity-model', 'tool', 'video-case-study', 'workshop-tool'
+);
+
+-- Step 3: Clear ALL existing tag links on all resources (clean slate)
 DELETE FROM "_ResourceToTag"
 WHERE "A" IN (SELECT id FROM "Resource");
 
--- Step 3: Link each resource to its correct tags from the original site
+-- Step 4: Link each resource to its correct tags from the original site
 
 -- Introduction to platform engineering → Article
 INSERT INTO "_ResourceToTag" ("A", "B")
@@ -97,11 +102,11 @@ INSERT INTO "_ResourceToTag" ("A", "B")
 SELECT r.id, t.id FROM "Resource" r, "Tag" t
 WHERE r.slug = 'find-sponsors-and-core-team' AND t.slug = 'guide';
 
--- Step 4: Drop the old columns
+-- Step 5: Drop the old columns
 ALTER TABLE "Resource" DROP COLUMN IF EXISTS "type";
 ALTER TABLE "Resource" DROP COLUMN IF EXISTS "readTime";
 
--- Step 5: Verify — shows each resource with its new tags
+-- Step 6: Verify — shows each resource with its new tags
 SELECT r.slug, r.title, array_agg(t.name ORDER BY t.name) AS tags
 FROM "Resource" r
 LEFT JOIN "_ResourceToTag" rt ON rt."A" = r.id
