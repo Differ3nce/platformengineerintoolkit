@@ -42,7 +42,6 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
     include: {
       category: true,
       author: { select: { name: true, image: true } },
-      tags: true,
       _count: { select: { likes: true, comments: true } },
     },
   });
@@ -85,11 +84,16 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
 
       {/* Header */}
       <header className="mb-8">
-        {/* Type badge + read time */}
+        {/* Type tags + read time */}
         <div className="mb-4 flex flex-wrap items-center gap-2">
-          <span className="inline-block rounded-full bg-secondary px-3 py-0.5 text-xs font-medium text-secondary-foreground">
-            {resource.type}
-          </span>
+          {resource.type.split(",").map((tag) => tag.trim()).filter(Boolean).map((tag) => (
+            <span
+              key={tag}
+              className="inline-block rounded-full bg-secondary px-3 py-0.5 text-xs font-medium text-secondary-foreground"
+            >
+              {tag}
+            </span>
+          ))}
           {resource.readTime && (
             <span className="text-xs text-muted-foreground">
               {resource.readTime}
@@ -106,20 +110,6 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
           <p className="mb-4 text-sm text-muted-foreground">
             For: {resource.targetAudience.join(", ")}
           </p>
-        )}
-
-        {/* Tags */}
-        {resource.tags.length > 0 && (
-          <div className="mb-4 flex flex-wrap gap-2">
-            {resource.tags.map((tag) => (
-              <span
-                key={tag.id}
-                className="inline-block rounded-full border border-border px-3 py-0.5 text-xs text-muted-foreground"
-              >
-                {tag.name}
-              </span>
-            ))}
-          </div>
         )}
 
         {/* Author */}

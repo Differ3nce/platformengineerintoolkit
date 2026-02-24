@@ -35,11 +35,16 @@ export default function ResourceCard({
           : "hover:shadow-lg hover:-translate-y-1 hover:bg-card-hover"
       }`}
     >
-      {/* Type badge + read time */}
+      {/* Type tags + read time */}
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-          {type}
-        </span>
+        {type.split(",").map((tag) => tag.trim()).filter(Boolean).map((tag) => (
+          <span
+            key={tag}
+            className="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+          >
+            {tag}
+          </span>
+        ))}
         {readTime && (
           <span className="text-xs text-muted-foreground">{readTime}</span>
         )}
