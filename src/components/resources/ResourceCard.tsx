@@ -35,7 +35,7 @@ export default function ResourceCard({
           : "hover:shadow-lg hover:-translate-y-1 hover:bg-card-hover"
       }`}
     >
-      {/* Tags + read time */}
+      {/* Tags */}
       <div className="mb-3 flex flex-wrap items-center gap-2">
         {tags.map((tag) => (
           <span
@@ -45,9 +45,6 @@ export default function ResourceCard({
             {tag.name}
           </span>
         ))}
-        {readTime && (
-          <span className="text-xs text-muted-foreground">{readTime}</span>
-        )}
         {isComingSoon && (
           <span className="inline-block rounded bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent-foreground">
             Coming Soon

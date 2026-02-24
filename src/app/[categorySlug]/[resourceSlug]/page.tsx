@@ -85,7 +85,7 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
 
       {/* Header */}
       <header className="mb-8">
-        {/* Tags + read time */}
+        {/* Tags */}
         <div className="mb-4 flex flex-wrap items-center gap-2">
           {resource.tags.map((tag) => (
             <span
@@ -95,11 +95,6 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
               {tag.name}
             </span>
           ))}
-          {resource.readTime && (
-            <span className="text-xs text-muted-foreground">
-              {resource.readTime}
-            </span>
-          )}
         </div>
 
         <h1 className="mb-4 text-3xl font-bold text-foreground">
