@@ -86,33 +86,19 @@ async function main() {
   console.log(`  ✓ Category: ${startingAndProgressing.name}`);
 
   // ─── Tags ─────────────────────────────────────────────────────────────────
-  // Format/type tags (what kind of resource it is)
-  const formatTagNames = [
-    { slug: "article", name: "Article" },
-    { slug: "book", name: "Book" },
-    { slug: "canvas", name: "Canvas" },
-    { slug: "framework", name: "Framework" },
-    { slug: "guide", name: "Guide" },
-    { slug: "maturity-model", name: "Maturity Model" },
-    { slug: "methodology", name: "Methodology" },
-    { slug: "method", name: "Method" },
-    { slug: "strategy", name: "Strategy" },
-    { slug: "video-series", name: "Video series" },
-    { slug: "workshop", name: "Workshop" },
+  // Tags matching exactly what was shown on the original site
+  const tagNames = [
+    { slug: "article",          name: "Article" },
+    { slug: "architecture",     name: "Architecture" },
+    { slug: "book",             name: "Book" },
+    { slug: "canvas",           name: "Canvas" },
+    { slug: "change-approach",  name: "Change Approach" },
+    { slug: "guide",            name: "Guide" },
+    { slug: "maturity-model",   name: "Maturity model" },
+    { slug: "tool",             name: "Tool" },
+    { slug: "video-case-study", name: "Video Case Study" },
+    { slug: "workshop-tool",    name: "Workshop tool" },
   ];
-  // Topic tags (what it is about)
-  const topicTagNames = [
-    { slug: "platform-engineering", name: "platform engineering" },
-    { slug: "devops", name: "devops" },
-    { slug: "developer-experience", name: "developer experience" },
-    { slug: "tooling", name: "tooling" },
-    { slug: "architecture", name: "architecture" },
-    { slug: "team-topologies", name: "team topologies" },
-    { slug: "adoption", name: "adoption" },
-    { slug: "funding", name: "funding" },
-    { slug: "communication", name: "communication" },
-  ];
-  const tagNames = [...formatTagNames, ...topicTagNames];
 
   const tags: Record<string, { id: string }> = {};
   for (const { slug, name } of tagNames) {
@@ -166,9 +152,6 @@ Begin your platform engineering journey by understanding your organization's spe
       tags: {
         connect: [
           { slug: "article" },
-          { slug: "platform-engineering" },
-          { slug: "devops" },
-          { slug: "developer-experience" },
         ],
       },
     },
@@ -219,9 +202,7 @@ Create a roadmap that prioritizes value delivery:
       authorId: gielen.id,
       tags: {
         connect: [
-          { slug: "workshop" },
-          { slug: "platform-engineering" },
-          { slug: "strategy" },
+          { slug: "article" },
         ],
       },
     },
@@ -275,9 +256,7 @@ Navigate the complex ecosystem of platform engineering tools with this comprehen
       authorId: andrea.id,
       tags: {
         connect: [
-          { slug: "canvas" },
-          { slug: "platform-engineering" },
-          { slug: "tooling" },
+          { slug: "tool" },
         ],
       },
     },
@@ -330,10 +309,9 @@ These three tools complement each other by addressing different aspects of socio
       authorId: gielen.id,
       tags: {
         connect: [
-          { slug: "framework" },
-          { slug: "architecture" },
-          { slug: "team-topologies" },
-          { slug: "strategy" },
+          { slug: "canvas" },
+          { slug: "workshop-tool" },
+          { slug: "book" },
         ],
       },
     },
@@ -389,8 +367,6 @@ Culture, skills, and governance. Is the organization structured to support and s
       tags: {
         connect: [
           { slug: "maturity-model" },
-          { slug: "platform-engineering" },
-          { slug: "strategy" },
         ],
       },
     },
@@ -412,9 +388,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       authorId: tom.id,
       tags: {
         connect: [
-          { slug: "guide" },
-          { slug: "tooling" },
-          { slug: "platform-engineering" },
+          { slug: "architecture" },
         ],
       },
     },
@@ -436,8 +410,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       authorId: gielen.id,
       tags: {
         connect: [
-          { slug: "methodology" },
-          { slug: "platform-engineering" },
+          { slug: "change-approach" },
         ],
       },
     },
@@ -463,7 +436,6 @@ Culture, skills, and governance. Is the organization structured to support and s
       tags: {
         connect: [
           { slug: "canvas" },
-          { slug: "adoption" },
         ],
       },
     },
@@ -486,7 +458,6 @@ Culture, skills, and governance. Is the organization structured to support and s
       tags: {
         connect: [
           { slug: "canvas" },
-          { slug: "developer-experience" },
         ],
       },
     },
@@ -508,9 +479,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       authorId: tom.id,
       tags: {
         connect: [
-          { slug: "framework" },
-          { slug: "funding" },
-          { slug: "strategy" },
+          { slug: "workshop-tool" },
         ],
       },
     },
@@ -532,9 +501,8 @@ Culture, skills, and governance. Is the organization structured to support and s
       authorId: andrea.id,
       tags: {
         connect: [
-          { slug: "method" },
-          { slug: "developer-experience" },
-          { slug: "methodology" },
+          { slug: "workshop-tool" },
+          { slug: "book" },
         ],
       },
     },
@@ -557,8 +525,6 @@ Culture, skills, and governance. Is the organization structured to support and s
       tags: {
         connect: [
           { slug: "guide" },
-          { slug: "communication" },
-          { slug: "adoption" },
         ],
       },
     },
@@ -582,8 +548,7 @@ Culture, skills, and governance. Is the organization structured to support and s
       authorId: tom.id,
       tags: {
         connect: [
-          { slug: "strategy" },
-          { slug: "adoption" },
+          { slug: "guide" },
         ],
       },
     },
