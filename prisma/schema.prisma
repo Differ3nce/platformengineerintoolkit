@@ -101,7 +101,6 @@ model Resource {
   description    String
   body           String
   status         ResourceStatus @default(DRAFT)
-  readTime       String?
   targetAudience String[]
   thumbnailUrl   String?
   externalLinks  Json?

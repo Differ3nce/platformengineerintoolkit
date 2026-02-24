@@ -38,7 +38,6 @@ export default async function EditResourcePage({ params }: EditResourcePageProps
           description: resource.description,
           body: resource.body,
           status: resource.status,
-          readTime: resource.readTime,
           targetAudience: resource.targetAudience,
           thumbnailUrl: resource.thumbnailUrl,
           externalLinks,

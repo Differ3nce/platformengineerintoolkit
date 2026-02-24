@@ -28,7 +28,6 @@ interface ResourceFormProps {
     description: string;
     body: string;
     status: string;
-    readTime: string | null;
     targetAudience: string[];
     thumbnailUrl: string | null;
     externalLinks: ExternalLink[];
@@ -49,7 +48,6 @@ export default function ResourceForm({
   const [description, setDescription] = useState(initialData?.description ?? "");
   const [bodyContent, setBodyContent] = useState(initialData?.body ?? "");
   const [status, setStatus] = useState(initialData?.status ?? "DRAFT");
-  const [readTime, setReadTime] = useState(initialData?.readTime ?? "");
   const [audienceInput, setAudienceInput] = useState(
     initialData?.targetAudience.join(", ") ?? ""
   );
@@ -107,7 +105,6 @@ export default function ResourceForm({
       description,
       bodyContent,
       status,
-      readTime: readTime || null,
       targetAudience,
       thumbnailUrl: thumbnailUrl || null,
       externalLinks: filteredLinks,
@@ -209,35 +206,20 @@ export default function ResourceForm({
         </p>
       </div>
 
-      {/* Status + Read Time row */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">
-            Status
-          </label>
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          >
-            <option value="DRAFT">Draft</option>
-            <option value="PUBLISHED">Published</option>
-            <option value="COMING_SOON">Coming Soon</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">
-            Read Time
-          </label>
-          <input
-            type="text"
-            value={readTime}
-            onChange={(e) => setReadTime(e.target.value)}
-            placeholder="e.g. 8 min read"
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
+      {/* Status */}
+      <div>
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          Status
+        </label>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        >
+          <option value="DRAFT">Draft</option>
+          <option value="PUBLISHED">Published</option>
+          <option value="COMING_SOON">Coming Soon</option>
+        </select>
       </div>
 
       {/* Category */}

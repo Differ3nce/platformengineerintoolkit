@@ -160,7 +160,6 @@ A successful platform typically includes:
 
 Begin your platform engineering journey by understanding your organization's specific needs and pain points. Focus on solving real problems rather than building technology for its own sake.`,
       status: "PUBLISHED",
-      readTime: "8 min read",
       targetAudience: ["Developers", "Engineering Managers"],
       categoryId: whatAndWhy.id,
       authorId: tom.id,
@@ -215,7 +214,6 @@ Create a roadmap that prioritizes value delivery:
 - Feedback loops and iteration
 - Success measurement and communication`,
       status: "PUBLISHED",
-      readTime: "45 min workshop",
       targetAudience: ["CTOs", "Platform Leaders"],
       categoryId: whatAndWhy.id,
       authorId: gielen.id,
@@ -272,7 +270,6 @@ Navigate the complex ecosystem of platform engineering tools with this comprehen
 - **Port:** Developer portal platform
 - **Cortex:** Internal developer portal`,
       status: "PUBLISHED",
-      readTime: "Interactive guide",
       targetAudience: ["Platform Engineers", "DevOps Teams"],
       categoryId: whatAndWhy.id,
       authorId: andrea.id,
@@ -324,7 +321,6 @@ These three tools complement each other by addressing different aspects of socio
 - [Canvas & Resources](https://susannekaiser.net/architecture-for-flow-canvas/)
 - [Video Introduction](https://youtu.be/Mm0ctgk-uIM?feature=shared)`,
       status: "PUBLISHED",
-      readTime: "15 min read",
       targetAudience: ["System Architects", "Platform Engineers"],
       externalLinks: {
         canvas: "https://susannekaiser.net/architecture-for-flow-canvas/",
@@ -384,7 +380,6 @@ Culture, skills, and governance. Is the organization structured to support and s
 
 - [CNCF Maturity Model](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/#model-table)`,
       status: "PUBLISHED",
-      readTime: "10 min read",
       targetAudience: ["Platform Leaders", "CTOs"],
       externalLinks: {
         cncf: "https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/#model-table",
@@ -412,7 +407,6 @@ Culture, skills, and governance. Is the organization structured to support and s
         "Comprehensive overview of the tools and technologies that make up a modern platform engineering ecosystem.",
       body: "Content coming soon.",
       status: "COMING_SOON",
-      readTime: "15 min read",
       targetAudience: ["Platform Engineers", "DevOps Teams"],
       categoryId: whereToStart.id,
       authorId: tom.id,
@@ -437,7 +431,6 @@ Culture, skills, and governance. Is the organization structured to support and s
         "Step-by-step methodology for initiating and launching your platform engineering transformation journey.",
       body: "Content coming soon.",
       status: "COMING_SOON",
-      readTime: "20 min read",
       targetAudience: ["Platform Leaders", "Engineering Managers"],
       categoryId: whereToStart.id,
       authorId: gielen.id,
@@ -464,7 +457,6 @@ Culture, skills, and governance. Is the organization structured to support and s
         "Visual framework for understanding and planning stakeholder engagement in platform engineering initiatives.",
       body: "Content coming soon.",
       status: "COMING_SOON",
-      readTime: "30 min workshop",
       targetAudience: ["Product Managers", "Platform Leaders"],
       categoryId: startingAndProgressing.id,
       authorId: gielen.id,
@@ -488,7 +480,6 @@ Culture, skills, and governance. Is the organization structured to support and s
         "Map and design the services your platform will provide to enable development teams effectively.",
       body: "Content coming soon.",
       status: "COMING_SOON",
-      readTime: "30 min workshop",
       targetAudience: ["Platform Engineers", "Service Designers"],
       categoryId: startingAndProgressing.id,
       authorId: andrea.id,
@@ -512,7 +503,6 @@ Culture, skills, and governance. Is the organization structured to support and s
         "Strategic approaches to securing sustainable funding and business case development for platform initiatives.",
       body: "Content coming soon.",
       status: "COMING_SOON",
-      readTime: "15 min read",
       targetAudience: ["Platform Leaders", "Finance Teams"],
       categoryId: startingAndProgressing.id,
       authorId: tom.id,
@@ -537,7 +527,6 @@ Culture, skills, and governance. Is the organization structured to support and s
         "Systematic approach to understanding and documenting the needs of developers and teams using your platform.",
       body: "Content coming soon.",
       status: "COMING_SOON",
-      readTime: "20 min read",
       targetAudience: ["Product Managers", "UX Designers"],
       categoryId: startingAndProgressing.id,
       authorId: andrea.id,
@@ -562,7 +551,6 @@ Culture, skills, and governance. Is the organization structured to support and s
         "Effective communication strategies for platform engineering across organizational levels and stakeholders.",
       body: "Content coming soon.",
       status: "COMING_SOON",
-      readTime: "12 min read",
       targetAudience: ["Platform Leaders", "Communication Teams"],
       categoryId: startingAndProgressing.id,
       authorId: gielen.id,
@@ -589,7 +577,6 @@ Culture, skills, and governance. Is the organization structured to support and s
         "Strategies for identifying, engaging, and building relationships with key sponsors and assembling your core platform team.",
       body: "Content coming soon.",
       status: "COMING_SOON",
-      readTime: "15 min read",
       targetAudience: ["Platform Leaders", "HR Partners"],
       categoryId: startingAndProgressing.id,
       authorId: tom.id,

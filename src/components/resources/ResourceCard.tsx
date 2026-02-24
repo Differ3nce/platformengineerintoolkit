@@ -4,7 +4,6 @@ interface ResourceCardProps {
   title: string;
   description: string;
   tags: { id: string; name: string }[];
-  readTime: string | null;
   targetAudience: string[];
   slug: string;
   categorySlug: string;
@@ -17,7 +16,6 @@ export default function ResourceCard({
   title,
   description,
   tags,
-  readTime,
   targetAudience,
   slug,
   categorySlug,

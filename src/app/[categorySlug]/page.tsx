@@ -80,7 +80,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               title={resource.title}
               description={resource.description}
               tags={resource.tags}
-              readTime={resource.readTime}
               targetAudience={resource.targetAudience}
               slug={resource.slug}
               categorySlug={category.slug}
