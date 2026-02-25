@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "npx prisma generate && next build",
+    "vercel-build": "npx prisma migrate deploy && npx prisma generate && next build",
     "db:migrate:deploy": "npx prisma migrate deploy",
     "start": "next start",
     "lint": "eslint",
