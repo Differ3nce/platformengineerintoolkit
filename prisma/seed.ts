@@ -3,7 +3,16 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const rawConnectionString = process.env.DATABASE_URL!;
+const needsSsl = rawConnectionString.includes("supabase") || rawConnectionString.includes("sslmode=");
+const connectionString = rawConnectionString
+  .replace(/[?&]sslmode=[^&]*/g, (match) => (match.startsWith("?") ? "?" : ""))
+  .replace(/\?&/, "?")
+  .replace(/\?$/, "");
+const pool = new Pool({
+  connectionString,
+  ...(needsSsl && { ssl: { rejectUnauthorized: false } }),
+});
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
