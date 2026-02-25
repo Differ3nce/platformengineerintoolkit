@@ -43,6 +43,18 @@ export default function PrivacyPage() {
             </div>
             <div className="rounded-lg border border-border p-4">
               <h3 className="mb-1 font-semibold text-foreground">
+                Performance monitoring — always active
+              </h3>
+              <p className="text-sm">
+                We use Vercel Speed Insights to collect Web Vitals (page load
+                times, layout stability, responsiveness). This data is
+                fully anonymised, uses no cookies, and cannot be used to
+                identify individual visitors. It is used solely to monitor and
+                improve site performance.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border p-4">
+              <h3 className="mb-1 font-semibold text-foreground">
                 Analytics — requires consent
               </h3>
               <p className="text-sm">
