@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ConsentProvider from "@/components/layout/ConsentProvider";
@@ -68,6 +69,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <ConsentProvider />
+        <SpeedInsights />
       </body>
     </html>
   );
