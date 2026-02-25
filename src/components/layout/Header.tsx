@@ -67,7 +67,7 @@ export default async function Header() {
     >
       <button
         type="submit"
-        className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-accent"
       >
         Sign in
       </button>
