@@ -45,9 +45,9 @@ export async function POST(req: Request, context: RouteContext) {
     );
   }
 
-  // Check resource exists
+  // Check resource exists and is publicly accessible
   const resource = await prisma.resource.findUnique({
-    where: { id: resourceId },
+    where: { id: resourceId, status: "PUBLISHED" },
   });
   if (!resource) {
     return NextResponse.json({ error: "Resource not found" }, { status: 404 });

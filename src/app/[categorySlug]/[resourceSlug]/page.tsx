@@ -25,7 +25,9 @@ export async function generateMetadata({
     where: { slug: resourceSlug },
   });
 
-  if (!resource) return { title: "Not Found" };
+  if (!resource || resource.status === "DRAFT" || resource.status === "COMING_SOON") {
+    return { title: "Not Found" };
+  }
 
   return {
     title: resource.title,

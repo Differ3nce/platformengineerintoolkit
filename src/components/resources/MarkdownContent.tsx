@@ -13,17 +13,21 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          a: ({ children, href, ...props }) => (
-            <a
-              href={href}
-              target={href?.startsWith("http") ? "_blank" : undefined}
-              rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="text-blue-600 hover:text-blue-800"
-              {...props}
-            >
-              {children}
-            </a>
-          ),
+          a: ({ children, href, ...props }) => {
+            const safeHref =
+              href && /^(https?:\/\/|mailto:|\/)/i.test(href) ? href : undefined;
+            return (
+              <a
+                href={safeHref}
+                target={safeHref?.startsWith("http") ? "_blank" : undefined}
+                rel={safeHref?.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="text-blue-600 hover:text-blue-800"
+                {...props}
+              >
+                {children}
+              </a>
+            );
+          },
           h1: ({ children, ...props }) => (
             <h1 className="mb-4 mt-8 text-2xl font-bold text-gray-900" {...props}>
               {children}

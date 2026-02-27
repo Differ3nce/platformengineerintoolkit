@@ -1,4 +1,5 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import ResourceForm from "@/components/admin/ResourceForm";
 
@@ -7,6 +8,9 @@ interface EditResourcePageProps {
 }
 
 export default async function EditResourcePage({ params }: EditResourcePageProps) {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") redirect("/auth/signin");
+
   const { id } = await params;
 
   const [resource, categories, tags, users] = await Promise.all([
