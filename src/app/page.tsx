@@ -42,7 +42,6 @@ export default async function HomePage() {
               >
                 <Rocket className="h-5 w-5 shrink-0" />
                 <span className="flex-1 text-center">{categories[0].name}</span>
-                <span className="w-5" />
               </Link>
             )}
             {categories[1] && (
@@ -52,7 +51,6 @@ export default async function HomePage() {
               >
                 <Star className="h-5 w-5 shrink-0" />
                 <span className="flex-1 text-center">{categories[1].name}</span>
-                <span className="w-5" />
               </Link>
             )}
             {categories[2] && (
@@ -62,7 +60,6 @@ export default async function HomePage() {
               >
                 <Sparkles className="h-5 w-5 shrink-0" />
                 <span className="flex-1 text-center">{categories[2].name}</span>
-                <span className="w-5" />
               </Link>
             )}
           </div>
