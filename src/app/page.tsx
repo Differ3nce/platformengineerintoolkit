@@ -7,7 +7,7 @@ export default async function HomePage() {
   const categories = await prisma.category.findMany({
     orderBy: { displayOrder: "asc" },
     include: {
-      _count: { select: { resources: true } },
+      _count: { select: { resources: { where: { status: "PUBLISHED" } } } },
     },
   });
 
