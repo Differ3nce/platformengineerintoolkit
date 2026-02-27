@@ -38,6 +38,13 @@ export async function POST(req: Request, context: RouteContext) {
     );
   }
 
+  if (body.trim().length > 5000) {
+    return NextResponse.json(
+      { error: "Comment exceeds maximum length of 5000 characters" },
+      { status: 400 }
+    );
+  }
+
   // Check resource exists
   const resource = await prisma.resource.findUnique({
     where: { id: resourceId },
