@@ -67,6 +67,22 @@ export default async function GetInvolvedPage() {
         <SubmissionForm isAuthenticated={!!session?.user} />
       </section>
 
+      <section className="mb-10">
+        <h2 className="mb-4 text-xl font-semibold text-foreground">
+          Get in Touch
+        </h2>
+        <p className="text-card-foreground leading-relaxed">
+          Prefer email? You can also reach us directly at{" "}
+          <a
+            href="mailto:platformengineeringtoolkit@gmail.com"
+            className="underline underline-offset-2 hover:text-accent"
+          >
+            platformengineeringtoolkit@gmail.com
+          </a>
+          .
+        </p>
+      </section>
+
       <section>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Please note that we maintain this toolkit in our free time. We read
