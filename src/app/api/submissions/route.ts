@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { Resend } from "resend";
 
 // POST a new submission
 export async function POST(req: Request) {
@@ -28,6 +29,31 @@ export async function POST(req: Request) {
       submittedById: session.user.id,
     },
   });
+
+  if (process.env.RESEND_API_KEY) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    try {
+      await resend.emails.send({
+        from: "Platform Engineering Toolkit <onboarding@resend.dev>",
+        to: "platformengineeringtoolkit@gmail.com",
+        subject: `New submission: ${title}`,
+        text: [
+          `A new resource has been submitted.`,
+          ``,
+          `Title: ${title}`,
+          `Type: ${type}`,
+          `Description: ${description}`,
+          externalUrl ? `URL: ${externalUrl}` : null,
+          ``,
+          `Submitted by: ${session.user.name} (${session.user.email})`,
+        ]
+          .filter(Boolean)
+          .join("\n"),
+      });
+    } catch (err) {
+      console.error("Failed to send submission notification email:", err);
+    }
+  }
 
   return NextResponse.json(submission, { status: 201 });
 }
