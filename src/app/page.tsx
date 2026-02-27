@@ -38,28 +38,28 @@ export default async function HomePage() {
             {categories[0] && (
               <Link
                 href={`/${categories[0].slug}`}
-                className="inline-flex items-center justify-center rounded-xl bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-xl"
+                className="flex items-center gap-3 rounded-xl bg-primary px-6 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-xl"
               >
-                <Rocket className="mr-2 h-5 w-5" />
-                {categories[0].name}
+                <Rocket className="h-5 w-5 shrink-0" />
+                <span className="flex-1 text-center">{categories[0].name}</span>
               </Link>
             )}
             {categories[1] && (
               <Link
                 href={`/${categories[1].slug}`}
-                className="inline-flex items-center justify-center rounded-xl bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-secondary/90 hover:shadow-xl"
+                className="flex items-center gap-3 rounded-xl bg-secondary px-6 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-secondary/90 hover:shadow-xl"
               >
-                <Star className="mr-2 h-5 w-5" />
-                {categories[1].name}
+                <Star className="h-5 w-5 shrink-0" />
+                <span className="flex-1 text-center">{categories[1].name}</span>
               </Link>
             )}
             {categories[2] && (
               <Link
                 href={`/${categories[2].slug}`}
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-8 py-4 text-lg font-semibold text-accent-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-accent/90 hover:shadow-xl"
+                className="flex items-center gap-3 rounded-xl bg-accent px-6 py-4 text-lg font-semibold text-accent-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-accent/90 hover:shadow-xl"
               >
-                <Sparkles className="mr-2 h-5 w-5" />
-                {categories[2].name}
+                <Sparkles className="h-5 w-5 shrink-0" />
+                <span className="flex-1 text-center">{categories[2].name}</span>
               </Link>
             )}
           </div>
