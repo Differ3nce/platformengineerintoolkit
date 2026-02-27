@@ -10,6 +10,13 @@ interface RouteContext {
 export async function GET(_req: Request, context: RouteContext) {
   const { id: resourceId } = await context.params;
 
+  const resource = await prisma.resource.findUnique({
+    where: { id: resourceId, status: "PUBLISHED" },
+  });
+  if (!resource) {
+    return NextResponse.json({ error: "Resource not found" }, { status: 404 });
+  }
+
   const comments = await prisma.comment.findMany({
     where: { resourceId },
     orderBy: { createdAt: "desc" },
