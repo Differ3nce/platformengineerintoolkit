@@ -38,7 +38,7 @@ export default async function HomePage() {
             {categories[0] && (
               <Link
                 href={`/${categories[0].slug}`}
-                className="inline-flex items-center rounded-xl bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-xl"
+                className="inline-flex items-center justify-center rounded-xl bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-xl"
               >
                 <Rocket className="mr-2 h-5 w-5" />
                 {categories[0].name}
@@ -47,7 +47,7 @@ export default async function HomePage() {
             {categories[1] && (
               <Link
                 href={`/${categories[1].slug}`}
-                className="inline-flex items-center rounded-xl bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-secondary/90 hover:shadow-xl"
+                className="inline-flex items-center justify-center rounded-xl bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-secondary/90 hover:shadow-xl"
               >
                 <Star className="mr-2 h-5 w-5" />
                 {categories[1].name}
@@ -56,7 +56,7 @@ export default async function HomePage() {
             {categories[2] && (
               <Link
                 href={`/${categories[2].slug}`}
-                className="inline-flex items-center rounded-xl bg-accent px-8 py-4 text-lg font-semibold text-accent-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-accent/90 hover:shadow-xl"
+                className="inline-flex items-center justify-center rounded-xl bg-accent px-8 py-4 text-lg font-semibold text-accent-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-accent/90 hover:shadow-xl"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
                 {categories[2].name}
