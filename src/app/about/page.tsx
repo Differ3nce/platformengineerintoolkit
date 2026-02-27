@@ -11,7 +11,7 @@ const authors = [
     name: "Gielen Rojas-Lopez",
     org: "ValueCraft Studio",
     bio: "25+ years of experience across Microsoft, VMware, and the public sector. Synthesizes systems thinking with Platform Engineering, DevOps, Team Topologies, IT Service Management, and organizational change.",
-    linkedin: "https://www.linkedin.com/in/gielenrojaslopez/",
+    linkedin: "https://www.linkedin.com/in/gielen/",
   },
   {
     name: "Tom Slenders",
@@ -23,7 +23,7 @@ const authors = [
     name: "Dr. Andrea Klettke",
     org: "Alliander",
     bio: "Combines physics training with change management and coaching expertise. Specializes in translating technical initiatives for management audiences and facilitating organizational flow improvements.",
-    linkedin: "https://www.linkedin.com/in/andreaklettke/",
+    linkedin: "https://www.linkedin.com/in/andrea-klettke-73928b105/",
   },
 ];
 
