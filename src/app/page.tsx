@@ -38,27 +38,27 @@ export default async function HomePage() {
             {categories[0] && (
               <Link
                 href={`/${categories[0].slug}`}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-xl"
+                className="relative inline-flex items-center justify-center rounded-xl bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-xl"
               >
-                <Rocket className="h-5 w-5 shrink-0" />
+                <Rocket className="absolute left-4 h-5 w-5 shrink-0" />
                 {categories[0].name}
               </Link>
             )}
             {categories[1] && (
               <Link
                 href={`/${categories[1].slug}`}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-secondary/90 hover:shadow-xl"
+                className="relative inline-flex items-center justify-center rounded-xl bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-secondary/90 hover:shadow-xl"
               >
-                <Star className="h-5 w-5 shrink-0" />
+                <Star className="absolute left-4 h-5 w-5 shrink-0" />
                 {categories[1].name}
               </Link>
             )}
             {categories[2] && (
               <Link
                 href={`/${categories[2].slug}`}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-4 text-lg font-semibold text-accent-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-accent/90 hover:shadow-xl"
+                className="relative inline-flex items-center justify-center rounded-xl bg-accent px-8 py-4 text-lg font-semibold text-accent-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-accent/90 hover:shadow-xl"
               >
-                <Sparkles className="h-5 w-5 shrink-0" />
+                <Sparkles className="absolute left-4 h-5 w-5 shrink-0" />
                 {categories[2].name}
               </Link>
             )}
