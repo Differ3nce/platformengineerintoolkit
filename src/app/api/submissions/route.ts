@@ -19,6 +19,20 @@ export async function POST(req: Request) {
     );
   }
 
+  if (title.length > 255 || description.length > 2000) {
+    return NextResponse.json({ error: "Input exceeds maximum length" }, { status: 400 });
+  }
+
+  if (body && body.length > 50000) {
+    return NextResponse.json({ error: "Body exceeds maximum length" }, { status: 400 });
+  }
+
+  if (externalUrl) {
+    if (externalUrl.length > 2000 || !/^https?:\/\//i.test(externalUrl)) {
+      return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
+    }
+  }
+
   const submission = await prisma.submission.create({
     data: {
       title,

@@ -23,6 +23,16 @@ export async function POST(request: NextRequest) {
     tagIds,
   } = body;
 
+  const isValidUrl = (url: string) => /^https?:\/\//i.test(url);
+
+  if (thumbnailUrl && !isValidUrl(thumbnailUrl)) {
+    return NextResponse.json({ error: "Invalid thumbnail URL" }, { status: 400 });
+  }
+
+  if (externalLinks?.some((link: { url: string }) => !isValidUrl(link.url))) {
+    return NextResponse.json({ error: "Invalid URL in external links" }, { status: 400 });
+  }
+
   const slug = slugify(title);
 
   const resource = await prisma.resource.create({

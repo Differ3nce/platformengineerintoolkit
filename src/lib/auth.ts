@@ -9,8 +9,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      // Allow linking Google accounts to existing users (seeded admins)
-      // Safe because Google always verifies email ownership
+      // Allow linking Google accounts to existing users (seeded admins).
+      // Scoped to Google only — safe because Google always verifies email ownership.
+      // WARNING: If a second provider is ever added, do NOT copy this flag unless
+      // that provider also guarantees verified email addresses, as it could allow
+      // account takeover via email matching on unverified addresses.
       allowDangerousEmailAccountLinking: true,
     }),
   ],
