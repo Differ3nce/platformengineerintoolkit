@@ -1,7 +1,11 @@
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import ResourceForm from "@/components/admin/ResourceForm";
 
 export default async function NewResourcePage() {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") redirect("/auth/signin");
   const [categories, tags, users] = await Promise.all([
     prisma.category.findMany({ orderBy: { displayOrder: "asc" } }),
     prisma.tag.findMany({ orderBy: { name: "asc" } }),

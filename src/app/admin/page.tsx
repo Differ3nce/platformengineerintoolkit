@@ -1,6 +1,10 @@
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminDashboard() {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") redirect("/auth/signin");
   const [resourceCount, categoryCount, tagCount, pendingSubmissions, commentCount] =
     await Promise.all([
       prisma.resource.count(),

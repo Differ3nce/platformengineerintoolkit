@@ -19,6 +19,14 @@ export async function POST(req: Request) {
     );
   }
 
+  const ALLOWED_TYPES = [
+    "Article", "Tool", "Framework", "Canvas", "Video",
+    "Workshop", "Book/Guide", "Maturity Model", "Case Study", "Other",
+  ];
+  if (!ALLOWED_TYPES.includes(type)) {
+    return NextResponse.json({ error: "Invalid submission type" }, { status: 400 });
+  }
+
   if (title.length > 255 || description.length > 2000) {
     return NextResponse.json({ error: "Input exceeds maximum length" }, { status: 400 });
   }

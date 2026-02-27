@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminResourcesPage() {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") redirect("/auth/signin");
   const resources = await prisma.resource.findMany({
     orderBy: { updatedAt: "desc" },
     include: {
