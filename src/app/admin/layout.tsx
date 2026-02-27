@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,11 +16,14 @@ const navItems = [
   { label: "Comments", href: "/admin/comments" },
 ];
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") redirect("/auth/signin");
+
   return (
     <div className="flex min-h-[calc(100vh-73px)]">
       {/* Sidebar */}

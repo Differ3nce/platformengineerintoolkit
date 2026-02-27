@@ -16,6 +16,17 @@ export async function PUT(
   const body = await request.json();
   const { action, reviewNote, categoryId } = body;
 
+  const existing = await prisma.submission.findUnique({ where: { id } });
+  if (!existing) {
+    return NextResponse.json({ error: "Submission not found" }, { status: 404 });
+  }
+  if (existing.status !== "PENDING") {
+    return NextResponse.json(
+      { error: "Only PENDING submissions can be reviewed" },
+      { status: 400 }
+    );
+  }
+
   if (action === "approve") {
     const submission = await prisma.submission.update({
       where: { id },
