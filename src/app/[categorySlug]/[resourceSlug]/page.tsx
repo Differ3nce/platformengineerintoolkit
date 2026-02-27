@@ -51,7 +51,7 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
     notFound();
   }
 
-  if (resource.status === "COMING_SOON") {
+  if (resource.status === "COMING_SOON" || resource.status === "DRAFT") {
     notFound();
   }
 
