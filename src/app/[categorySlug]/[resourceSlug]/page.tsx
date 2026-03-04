@@ -78,8 +78,8 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
     userHasLiked = !!like;
   }
 
-  const externalLinks = (resource.externalLinks as ExternalLink[] | null) ?? [];
-  const resourceAuthors = (resource.resourceAuthors as ResourceAuthor[] | null) ?? [];
+  const externalLinks = (resource.externalLinks as unknown as ExternalLink[] | null) ?? [];
+  const resourceAuthors = (resource.resourceAuthors as unknown as ResourceAuthor[] | null) ?? [];
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">

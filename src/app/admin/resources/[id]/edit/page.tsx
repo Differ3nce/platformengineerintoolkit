@@ -39,7 +39,7 @@ export default async function EditResourcePage({ params }: EditResourcePageProps
     ? (resource.externalLinks as { label: string; url: string; description?: string }[])
     : [];
   const resourceAuthors = Array.isArray(resource.resourceAuthors)
-    ? (resource.resourceAuthors as ResourceAuthor[])
+    ? (resource.resourceAuthors as unknown as ResourceAuthor[])
     : [];
 
   return (
