@@ -49,11 +49,18 @@ export async function PUT(
   }
 
   try {
+    const baseSlug = slugify(title);
+    let slug = baseSlug;
+    let suffix = 1;
+    while (await prisma.resource.findFirst({ where: { slug, NOT: { id } } })) {
+      slug = `${baseSlug}-${suffix++}`;
+    }
+
     const resource = await prisma.resource.update({
       where: { id },
       data: {
         title,
-        slug: slugify(title),
+        slug,
         description,
         body: bodyContent,
         status,

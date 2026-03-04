@@ -28,34 +28,47 @@ export async function PUT(
   }
 
   if (action === "approve") {
-    const submission = await prisma.submission.update({
-      where: { id },
-      data: {
-        status: "APPROVED",
-        reviewedById: session?.user?.id,
-        reviewNote: reviewNote || null,
-      },
-    });
-
-    // Create a draft resource from the approved submission
-    if (categoryId) {
-      const links = submission.externalLinks as { label: string; url: string }[] | null;
-      await prisma.resource.create({
+    const submission = await prisma.$transaction(async (tx) => {
+      const updated = await tx.submission.update({
+        where: { id },
         data: {
-          title: submission.title,
-          slug: slugify(submission.title),
-          description: submission.description,
-          body: submission.body ?? "",
-          status: "DRAFT",
-          categoryId,
-          externalLinks: links?.length
-            ? links
-            : submission.externalUrl
-              ? [{ label: "Original Link", url: submission.externalUrl }]
-              : [],
+          status: "APPROVED",
+          reviewedById: session?.user?.id,
+          reviewNote: reviewNote || null,
         },
       });
-    }
+
+      // Create a draft resource from the approved submission
+      if (categoryId) {
+        const links = updated.externalLinks as { url: string }[] | null;
+
+        // Generate a unique slug
+        const baseSlug = slugify(updated.title);
+        let slug = baseSlug;
+        let suffix = 1;
+        while (await tx.resource.findUnique({ where: { slug } })) {
+          slug = `${baseSlug}-${suffix++}`;
+        }
+
+        await tx.resource.create({
+          data: {
+            title: updated.title,
+            slug,
+            description: updated.description ?? "",
+            body: updated.body ?? "",
+            status: "DRAFT",
+            categoryId,
+            externalLinks: links?.length
+              ? links
+              : updated.externalUrl
+                ? [{ url: updated.externalUrl }]
+                : [],
+          },
+        });
+      }
+
+      return updated;
+    });
 
     return NextResponse.json(submission);
   }

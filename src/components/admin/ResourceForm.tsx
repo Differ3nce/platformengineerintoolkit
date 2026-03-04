@@ -176,7 +176,7 @@ export default function ResourceForm({
       .map((s) => s.trim())
       .filter(Boolean);
 
-    const filteredLinks = externalLinks.filter((l) => l.label && l.url);
+    const filteredLinks = externalLinks.filter((l) => l.url);
     const filteredAuthors = resourceAuthors
       .filter((a) => a.name.trim())
       .map((a) => ({ ...a, links: a.links.filter((l) => l.label && l.url) }));

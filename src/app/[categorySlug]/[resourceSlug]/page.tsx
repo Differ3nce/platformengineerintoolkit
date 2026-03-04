@@ -159,7 +159,7 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
                   rel="noopener noreferrer"
                   className="text-primary hover:text-accent"
                 >
-                  {link.label} &rarr;
+                  {link.label || link.url} &rarr;
                 </a>
                 {link.description && (
                   <p className="mt-0.5 text-sm text-muted-foreground">

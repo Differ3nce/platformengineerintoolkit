@@ -27,10 +27,19 @@ describe("SubmissionForm", () => {
     it("renders all form fields", () => {
       render(<SubmissionForm isAuthenticated={true} />);
       expect(screen.getByLabelText(/title/i)).toBeInTheDocument();
-      expect(screen.getByLabelText(/type/i)).toBeInTheDocument();
-      expect(screen.getByLabelText(/short description/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/detailed content/i)).toBeInTheDocument();
-      expect(screen.getByLabelText(/external url/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/links to the external resources/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/contact information/i)).toBeInTheDocument();
+    });
+
+    it("does not render a short description field", () => {
+      render(<SubmissionForm isAuthenticated={true} />);
+      expect(screen.queryByLabelText(/short description/i)).not.toBeInTheDocument();
+    });
+
+    it("does not render a label input in the links section", () => {
+      render(<SubmissionForm isAuthenticated={true} />);
+      expect(screen.queryByPlaceholderText(/label/i)).not.toBeInTheDocument();
     });
 
     it("renders the submit button", () => {
@@ -40,17 +49,15 @@ describe("SubmissionForm", () => {
       ).toBeInTheDocument();
     });
 
-    it("shows validation error when required fields are missing", async () => {
+    it("shows validation error when title is missing", async () => {
       render(<SubmissionForm isAuthenticated={true} />);
       fireEvent.submit(screen.getByRole("button", { name: /submit resource/i }).closest("form")!);
       await waitFor(() => {
-        expect(
-          screen.getByText(/title, type, and description are required/i)
-        ).toBeInTheDocument();
+        expect(screen.getByText(/title is required/i)).toBeInTheDocument();
       });
     });
 
-    it("does not call fetch when required fields are missing", async () => {
+    it("does not call fetch when title is missing", async () => {
       render(<SubmissionForm isAuthenticated={true} />);
       fireEvent.submit(screen.getByRole("button", { name: /submit resource/i }).closest("form")!);
       await waitFor(() => {
@@ -66,18 +73,11 @@ describe("SubmissionForm", () => {
       render(<SubmissionForm isAuthenticated={true} />);
 
       await userEvent.type(screen.getByLabelText(/title/i), "My Resource");
-      await userEvent.selectOptions(screen.getByLabelText(/type/i), "Article");
-      await userEvent.type(
-        screen.getByLabelText(/short description/i),
-        "A great resource."
-      );
 
       fireEvent.submit(screen.getByRole("button", { name: /submit resource/i }).closest("form")!);
 
       await waitFor(() => {
-        expect(
-          screen.getByText(/thank you for your submission/i)
-        ).toBeInTheDocument();
+        expect(screen.getByText(/thank you for your submission/i)).toBeInTheDocument();
       });
     });
 
@@ -89,11 +89,6 @@ describe("SubmissionForm", () => {
       render(<SubmissionForm isAuthenticated={true} />);
 
       await userEvent.type(screen.getByLabelText(/title/i), "My Resource");
-      await userEvent.selectOptions(screen.getByLabelText(/type/i), "Tool");
-      await userEvent.type(
-        screen.getByLabelText(/short description/i),
-        "A useful tool."
-      );
 
       fireEvent.submit(screen.getByRole("button", { name: /submit resource/i }).closest("form")!);
 
@@ -105,10 +100,9 @@ describe("SubmissionForm", () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               title: "My Resource",
-              type: "Tool",
-              description: "A useful tool.",
               body: null,
-              externalUrl: null,
+              externalLinks: [],
+              contactInfo: null,
             }),
           })
         );
@@ -124,11 +118,6 @@ describe("SubmissionForm", () => {
       render(<SubmissionForm isAuthenticated={true} />);
 
       await userEvent.type(screen.getByLabelText(/title/i), "My Resource");
-      await userEvent.selectOptions(screen.getByLabelText(/type/i), "Article");
-      await userEvent.type(
-        screen.getByLabelText(/short description/i),
-        "A great resource."
-      );
 
       fireEvent.submit(screen.getByRole("button", { name: /submit resource/i }).closest("form")!);
 
@@ -145,18 +134,11 @@ describe("SubmissionForm", () => {
       render(<SubmissionForm isAuthenticated={true} />);
 
       await userEvent.type(screen.getByLabelText(/title/i), "My Resource");
-      await userEvent.selectOptions(screen.getByLabelText(/type/i), "Article");
-      await userEvent.type(
-        screen.getByLabelText(/short description/i),
-        "A great resource."
-      );
 
       fireEvent.submit(screen.getByRole("button", { name: /submit resource/i }).closest("form")!);
 
       await waitFor(() => {
-        expect(
-          screen.getByText(/network error. please try again/i)
-        ).toBeInTheDocument();
+        expect(screen.getByText(/network error. please try again/i)).toBeInTheDocument();
       });
     });
 
@@ -171,11 +153,6 @@ describe("SubmissionForm", () => {
       render(<SubmissionForm isAuthenticated={true} />);
 
       await userEvent.type(screen.getByLabelText(/title/i), "My Resource");
-      await userEvent.selectOptions(screen.getByLabelText(/type/i), "Article");
-      await userEvent.type(
-        screen.getByLabelText(/short description/i),
-        "A great resource."
-      );
 
       fireEvent.submit(screen.getByRole("button", { name: /submit resource/i }).closest("form")!);
 
@@ -194,11 +171,6 @@ describe("SubmissionForm", () => {
       render(<SubmissionForm isAuthenticated={true} />);
 
       await userEvent.type(screen.getByLabelText(/title/i), "My Resource");
-      await userEvent.selectOptions(screen.getByLabelText(/type/i), "Article");
-      await userEvent.type(
-        screen.getByLabelText(/short description/i),
-        "A great resource."
-      );
 
       fireEvent.submit(screen.getByRole("button", { name: /submit resource/i }).closest("form")!);
 

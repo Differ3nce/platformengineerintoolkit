@@ -161,7 +161,7 @@ enum SubmissionStatus {
 model Submission {
   id            String           @id @default(cuid())
   title         String
-  description   String
+  description   String?
   body          String?
   type          String
   externalUrl   String?

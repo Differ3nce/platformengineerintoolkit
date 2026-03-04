@@ -10,16 +10,16 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { title, description, body, externalLinks, contactInfo } = await req.json();
+  const { title, body, externalLinks, contactInfo } = await req.json();
 
-  if (!title || !description) {
+  if (!title) {
     return NextResponse.json(
-      { error: "Title and description are required" },
+      { error: "Title is required" },
       { status: 400 }
     );
   }
 
-  if (title.length > 255 || description.length > 2000) {
+  if (title.length > 255) {
     return NextResponse.json({ error: "Input exceeds maximum length" }, { status: 400 });
   }
 
@@ -45,8 +45,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Too many links (max 20)" }, { status: 400 });
   }
 
-  if (externalLinks?.some((l: { label: string; url: string }) =>
-    !isValidUrl(l.url) || l.url.length > 2048 || (l.label && l.label.length > 255)
+  if (externalLinks?.some((l: { url: string }) =>
+    !isValidUrl(l.url) || l.url.length > 2048
   )) {
     return NextResponse.json({ error: "Invalid URL in external links" }, { status: 400 });
   }
@@ -54,7 +54,6 @@ export async function POST(req: Request) {
   const submission = await prisma.submission.create({
     data: {
       title,
-      description,
       body: body || null,
       type: "",
       externalLinks: externalLinks ?? [],
@@ -74,8 +73,7 @@ export async function POST(req: Request) {
           `A new resource has been submitted.`,
           ``,
           `Title: ${title}`,
-          `Description: ${description}`,
-          ...(externalLinks?.length ? externalLinks.map((l: { label: string; url: string }) => `Link: ${l.label} — ${l.url}`) : []),
+          ...(externalLinks?.length ? externalLinks.map((l: { url: string }) => `Link: ${l.url}`) : []),
           contactInfo ? `Contact: ${contactInfo}` : null,
           ``,
           `Submitted by: ${session.user.name} (${session.user.email})`,
