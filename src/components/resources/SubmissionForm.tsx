@@ -27,6 +27,7 @@ export default function SubmissionForm({
   const [description, setDescription] = useState("");
   const [body, setBody] = useState("");
   const [externalUrl, setExternalUrl] = useState("");
+  const [contactInfo, setContactInfo] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -66,6 +67,7 @@ export default function SubmissionForm({
             setDescription("");
             setBody("");
             setExternalUrl("");
+            setContactInfo("");
           }}
           className="mt-4 text-sm text-green-600 hover:text-green-800"
         >
@@ -96,6 +98,7 @@ export default function SubmissionForm({
           description: description.trim(),
           body: body.trim() || null,
           externalUrl: externalUrl.trim() || null,
+          contactInfo: contactInfo.trim() || null,
         }),
       });
 
@@ -214,6 +217,24 @@ export default function SubmissionForm({
           value={externalUrl}
           onChange={(e) => setExternalUrl(e.target.value)}
           placeholder="https://example.com/resource"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor="sub-contact"
+          className="mb-1 block text-sm font-medium text-gray-700"
+        >
+          Contact information{" "}
+          <span className="font-normal text-gray-400">(optional, only visible to admins)</span>
+        </label>
+        <input
+          id="sub-contact"
+          type="text"
+          value={contactInfo}
+          onChange={(e) => setContactInfo(e.target.value)}
+          placeholder="e.g. email address, LinkedIn, or any other way to reach you"
           className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
         />
       </div>
