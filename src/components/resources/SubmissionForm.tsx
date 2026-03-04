@@ -2,19 +2,6 @@
 
 import { useState } from "react";
 
-const RESOURCE_TYPES = [
-  "Article",
-  "Tool",
-  "Framework",
-  "Canvas",
-  "Video",
-  "Workshop",
-  "Book/Guide",
-  "Maturity Model",
-  "Case Study",
-  "Other",
-];
-
 interface SubmissionFormProps {
   isAuthenticated: boolean;
 }
@@ -23,11 +10,22 @@ export default function SubmissionForm({
   isAuthenticated,
 }: SubmissionFormProps) {
   const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [body, setBody] = useState("");
-  const [externalUrl, setExternalUrl] = useState("");
+  const [externalLinks, setExternalLinks] = useState([{ label: "", url: "" }]);
   const [contactInfo, setContactInfo] = useState("");
+
+  function addLink() {
+    setExternalLinks([...externalLinks, { label: "", url: "" }]);
+  }
+  function removeLink(i: number) {
+    setExternalLinks(externalLinks.filter((_, idx) => idx !== i));
+  }
+  function updateLink(i: number, field: "label" | "url", value: string) {
+    const updated = [...externalLinks];
+    updated[i] = { ...updated[i], [field]: value };
+    setExternalLinks(updated);
+  }
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -63,10 +61,9 @@ export default function SubmissionForm({
           onClick={() => {
             setSubmitted(false);
             setTitle("");
-            setType("");
             setDescription("");
             setBody("");
-            setExternalUrl("");
+            setExternalLinks([{ label: "", url: "" }]);
             setContactInfo("");
           }}
           className="mt-4 text-sm text-green-600 hover:text-green-800"
@@ -82,8 +79,8 @@ export default function SubmissionForm({
     if (submitting) return;
     setError("");
 
-    if (!title.trim() || !type || !description.trim()) {
-      setError("Title, type, and description are required.");
+    if (!title.trim() || !description.trim()) {
+      setError("Title and description are required.");
       return;
     }
 
@@ -94,10 +91,9 @@ export default function SubmissionForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: title.trim(),
-          type,
           description: description.trim(),
           body: body.trim() || null,
-          externalUrl: externalUrl.trim() || null,
+          externalLinks: externalLinks.filter((l) => l.label && l.url),
           contactInfo: contactInfo.trim() || null,
         }),
       });
@@ -146,29 +142,6 @@ export default function SubmissionForm({
 
       <div>
         <label
-          htmlFor="sub-type"
-          className="mb-1 block text-sm font-medium text-gray-700"
-        >
-          Type *
-        </label>
-        <select
-          id="sub-type"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
-          required
-        >
-          <option value="">Select type...</option>
-          {RESOURCE_TYPES.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label
           htmlFor="sub-description"
           className="mb-1 block text-sm font-medium text-gray-700"
         >
@@ -204,21 +177,44 @@ export default function SubmissionForm({
       </div>
 
       <div>
-        <label
-          htmlFor="sub-url"
-          className="mb-1 block text-sm font-medium text-gray-700"
-        >
-          External URL{" "}
+        <label className="mb-2 block text-sm font-medium text-gray-700">
+          Links{" "}
           <span className="font-normal text-gray-400">(optional)</span>
         </label>
-        <input
-          id="sub-url"
-          type="url"
-          value={externalUrl}
-          onChange={(e) => setExternalUrl(e.target.value)}
-          placeholder="https://example.com/resource"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
-        />
+        {externalLinks.map((link, i) => (
+          <div key={i} className="mb-2 flex gap-2">
+            <input
+              type="text"
+              value={link.label}
+              onChange={(e) => updateLink(i, "label", e.target.value)}
+              placeholder="Label"
+              className="w-1/3 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+            />
+            <input
+              type="url"
+              value={link.url}
+              onChange={(e) => updateLink(i, "url", e.target.value)}
+              placeholder="https://..."
+              className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+            />
+            {externalLinks.length > 1 && (
+              <button
+                type="button"
+                onClick={() => removeLink(i)}
+                className="text-sm text-red-500 hover:text-red-700"
+              >
+                Remove
+              </button>
+            )}
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addLink}
+          className="text-sm text-blue-600 hover:text-blue-800"
+        >
+          + Add link
+        </button>
       </div>
 
       <div>

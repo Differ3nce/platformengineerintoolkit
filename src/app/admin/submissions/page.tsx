@@ -10,6 +10,7 @@ interface Submission {
   body: string | null;
   type: string;
   externalUrl: string | null;
+  externalLinks: { label: string; url: string }[] | null;
   contactInfo: string | null;
   status: string;
   reviewNote: string | null;
@@ -121,15 +122,23 @@ export default function AdminSubmissionsPage() {
                 </details>
               )}
 
-              {sub.externalUrl && (
+              {sub.externalLinks && sub.externalLinks.length > 0 && (
+                <div className="mb-2 text-sm">
+                  <span className="text-gray-500">Links: </span>
+                  {sub.externalLinks.map((link, i) => (
+                    <span key={i}>
+                      <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
+                        {link.label || link.url}
+                      </a>
+                      {i < sub.externalLinks!.length - 1 && ", "}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {!sub.externalLinks?.length && sub.externalUrl && (
                 <p className="mb-2 text-sm">
                   <span className="text-gray-500">Link: </span>
-                  <a
-                    href={sub.externalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800"
-                  >
+                  <a href={sub.externalUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
                     {sub.externalUrl}
                   </a>
                 </p>

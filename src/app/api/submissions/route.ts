@@ -10,21 +10,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { title, description, body, type, externalUrl, contactInfo } = await req.json();
+  const { title, description, body, externalLinks, contactInfo } = await req.json();
 
-  if (!title || !description || !type) {
+  if (!title || !description) {
     return NextResponse.json(
-      { error: "Title, description, and type are required" },
+      { error: "Title and description are required" },
       { status: 400 }
     );
-  }
-
-  const ALLOWED_TYPES = [
-    "Article", "Tool", "Framework", "Canvas", "Video",
-    "Workshop", "Book/Guide", "Maturity Model", "Case Study", "Other",
-  ];
-  if (!ALLOWED_TYPES.includes(type)) {
-    return NextResponse.json({ error: "Invalid submission type" }, { status: 400 });
   }
 
   if (title.length > 255 || description.length > 2000) {
@@ -39,10 +31,24 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Contact info exceeds maximum length" }, { status: 400 });
   }
 
-  if (externalUrl) {
-    if (externalUrl.length > 2000 || !/^https?:\/\//i.test(externalUrl)) {
-      return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
+  // Only allow http/https — blocks javascript:, data:, blob:, etc.
+  const isValidUrl = (url: string) => {
+    try {
+      const parsed = new URL(url);
+      return parsed.protocol === "http:" || parsed.protocol === "https:";
+    } catch {
+      return false;
     }
+  };
+
+  if (externalLinks && externalLinks.length > 20) {
+    return NextResponse.json({ error: "Too many links (max 20)" }, { status: 400 });
+  }
+
+  if (externalLinks?.some((l: { label: string; url: string }) =>
+    !isValidUrl(l.url) || l.url.length > 2048 || (l.label && l.label.length > 255)
+  )) {
+    return NextResponse.json({ error: "Invalid URL in external links" }, { status: 400 });
   }
 
   const submission = await prisma.submission.create({
@@ -50,8 +56,8 @@ export async function POST(req: Request) {
       title,
       description,
       body: body || null,
-      type,
-      externalUrl: externalUrl || null,
+      type: "",
+      externalLinks: externalLinks ?? [],
       contactInfo: contactInfo || null,
       submittedById: session.user.id,
     },
@@ -68,9 +74,8 @@ export async function POST(req: Request) {
           `A new resource has been submitted.`,
           ``,
           `Title: ${title}`,
-          `Type: ${type}`,
           `Description: ${description}`,
-          externalUrl ? `URL: ${externalUrl}` : null,
+          ...(externalLinks?.length ? externalLinks.map((l: { label: string; url: string }) => `Link: ${l.label} — ${l.url}`) : []),
           contactInfo ? `Contact: ${contactInfo}` : null,
           ``,
           `Submitted by: ${session.user.name} (${session.user.email})`,

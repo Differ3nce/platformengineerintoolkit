@@ -47,9 +47,12 @@ export async function PUT(
           body: submission.body ?? "",
           status: "DRAFT",
           categoryId,
-          externalLinks: submission.externalUrl
-            ? [{ label: "Original Link", url: submission.externalUrl }]
-            : [],
+          externalLinks:
+            (submission.externalLinks as { label: string; url: string }[] | null)?.length
+              ? submission.externalLinks
+              : submission.externalUrl
+                ? [{ label: "Original Link", url: submission.externalUrl }]
+                : [],
         },
       });
     }
