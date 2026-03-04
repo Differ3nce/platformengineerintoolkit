@@ -39,6 +39,7 @@ export async function PUT(
 
     // Create a draft resource from the approved submission
     if (categoryId) {
+      const links = submission.externalLinks as { label: string; url: string }[] | null;
       await prisma.resource.create({
         data: {
           title: submission.title,
@@ -47,9 +48,11 @@ export async function PUT(
           body: submission.body ?? "",
           status: "DRAFT",
           categoryId,
-          externalLinks: submission.externalUrl
-            ? [{ label: "Original Link", url: submission.externalUrl }]
-            : [],
+          externalLinks: links?.length
+            ? links
+            : submission.externalUrl
+              ? [{ label: "Original Link", url: submission.externalUrl }]
+              : [],
         },
       });
     }
