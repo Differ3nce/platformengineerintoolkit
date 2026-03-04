@@ -22,6 +22,7 @@ export async function PUT(
     targetAudience,
     thumbnailUrl,
     externalLinks,
+    resourceAuthors,
     categoryId,
     authorIds,
     tagIds,
@@ -37,29 +38,45 @@ export async function PUT(
     return NextResponse.json({ error: "Invalid URL in external links" }, { status: 400 });
   }
 
-  const resource = await prisma.resource.update({
-    where: { id },
-    data: {
-      title,
-      slug: slugify(title),
-      description,
-      body: bodyContent,
-      status,
-      targetAudience: targetAudience ?? [],
-      thumbnailUrl: thumbnailUrl || null,
-      externalLinks: externalLinks ?? [],
-      categoryId,
-      authors: {
-        set: authorIds?.map((authorId: string) => ({ id: authorId })) ?? [],
-      },
-      tags: {
-        set: tagIds?.map((tagId: string) => ({ id: tagId })) ?? [],
-      },
-    },
-    include: { category: true, tags: true, authors: true },
-  });
+  if (
+    resourceAuthors?.some(
+      (a: { name: string; imageUrl?: string; links?: { url: string }[] }) =>
+        a.links?.some((l: { url: string }) => !isValidUrl(l.url)) ||
+        (a.imageUrl && !isValidUrl(a.imageUrl))
+    )
+  ) {
+    return NextResponse.json({ error: "Invalid URL in resource authors" }, { status: 400 });
+  }
 
-  return NextResponse.json(resource);
+  try {
+    const resource = await prisma.resource.update({
+      where: { id },
+      data: {
+        title,
+        slug: slugify(title),
+        description,
+        body: bodyContent,
+        status,
+        targetAudience: targetAudience ?? [],
+        thumbnailUrl: thumbnailUrl || null,
+        externalLinks: externalLinks ?? [],
+        resourceAuthors: resourceAuthors ?? [],
+        categoryId,
+        authors: {
+          set: authorIds?.map((authorId: string) => ({ id: authorId })) ?? [],
+        },
+        tags: {
+          set: tagIds?.map((tagId: string) => ({ id: tagId })) ?? [],
+        },
+      },
+      include: { category: true, tags: true, authors: true },
+    });
+
+    return NextResponse.json(resource);
+  } catch (err) {
+    console.error("Failed to update resource:", err);
+    return NextResponse.json({ error: "Failed to update resource" }, { status: 500 });
+  }
 }
 
 export async function DELETE(

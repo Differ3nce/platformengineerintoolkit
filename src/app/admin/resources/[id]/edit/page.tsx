@@ -3,6 +3,13 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import ResourceForm from "@/components/admin/ResourceForm";
 
+interface ResourceAuthor {
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  links: Array<{ label: string; url: string }>;
+}
+
 interface EditResourcePageProps {
   params: Promise<{ id: string }>;
 }
@@ -31,6 +38,9 @@ export default async function EditResourcePage({ params }: EditResourcePageProps
   const externalLinks = Array.isArray(resource.externalLinks)
     ? (resource.externalLinks as { label: string; url: string; description?: string }[])
     : [];
+  const resourceAuthors = Array.isArray(resource.resourceAuthors)
+    ? (resource.resourceAuthors as ResourceAuthor[])
+    : [];
 
   return (
     <div>
@@ -50,6 +60,7 @@ export default async function EditResourcePage({ params }: EditResourcePageProps
           targetAudience: resource.targetAudience,
           thumbnailUrl: resource.thumbnailUrl,
           externalLinks,
+          resourceAuthors,
           categoryId: resource.categoryId,
           tagIds: resource.tags.map((t) => t.id),
           authorIds: resource.authors.map((a) => a.id),

@@ -24,6 +24,13 @@ interface ExternalLink {
   description?: string;
 }
 
+interface ResourceAuthor {
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  links: Array<{ label: string; url: string }>;
+}
+
 interface ResourceFormProps {
   categories: Category[];
   tags: Tag[];
@@ -37,6 +44,7 @@ interface ResourceFormProps {
     targetAudience: string[];
     thumbnailUrl: string | null;
     externalLinks: ExternalLink[];
+    resourceAuthors: ResourceAuthor[];
     categoryId: string;
     tagIds: string[];
     authorIds: string[];
@@ -69,6 +77,9 @@ export default function ResourceForm({
   );
   const [externalLinks, setExternalLinks] = useState<ExternalLink[]>(
     initialData?.externalLinks ?? [{ label: "", url: "" }]
+  );
+  const [resourceAuthors, setResourceAuthors] = useState<ResourceAuthor[]>(
+    initialData?.resourceAuthors ?? []
   );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -107,6 +118,35 @@ export default function ResourceForm({
     setExternalLinks(updated);
   }
 
+  function addResourceAuthor() {
+    setResourceAuthors([...resourceAuthors, { name: "", description: "", imageUrl: "", links: [{ label: "", url: "" }] }]);
+  }
+  function removeResourceAuthor(i: number) {
+    setResourceAuthors(resourceAuthors.filter((_, idx) => idx !== i));
+  }
+  function updateResourceAuthor(i: number, field: "name" | "description" | "imageUrl", value: string) {
+    const updated = [...resourceAuthors];
+    updated[i] = { ...updated[i], [field]: value };
+    setResourceAuthors(updated);
+  }
+  function addResourceAuthorLink(i: number) {
+    const updated = [...resourceAuthors];
+    updated[i] = { ...updated[i], links: [...updated[i].links, { label: "", url: "" }] };
+    setResourceAuthors(updated);
+  }
+  function removeResourceAuthorLink(i: number, li: number) {
+    const updated = [...resourceAuthors];
+    updated[i] = { ...updated[i], links: updated[i].links.filter((_, idx) => idx !== li) };
+    setResourceAuthors(updated);
+  }
+  function updateResourceAuthorLink(i: number, li: number, field: "label" | "url", value: string) {
+    const updated = [...resourceAuthors];
+    const links = [...updated[i].links];
+    links[li] = { ...links[li], [field]: value };
+    updated[i] = { ...updated[i], links };
+    setResourceAuthors(updated);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
@@ -118,6 +158,9 @@ export default function ResourceForm({
       .filter(Boolean);
 
     const filteredLinks = externalLinks.filter((l) => l.label && l.url);
+    const filteredAuthors = resourceAuthors
+      .filter((a) => a.name.trim())
+      .map((a) => ({ ...a, links: a.links.filter((l) => l.label && l.url) }));
 
     const payload = {
       title,
@@ -127,6 +170,7 @@ export default function ResourceForm({
       targetAudience,
       thumbnailUrl: thumbnailUrl || null,
       externalLinks: filteredLinks,
+      resourceAuthors: filteredAuthors,
       categoryId,
       tagIds: selectedTagIds,
       authorIds: selectedAuthorIds,
@@ -145,8 +189,14 @@ export default function ResourceForm({
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to save resource");
+        const text = await res.text();
+        let message = "Failed to save resource";
+        try {
+          message = JSON.parse(text)?.error || message;
+        } catch {
+          // response was not JSON (e.g. a 500 HTML page)
+        }
+        throw new Error(message);
       }
 
       router.push("/admin/resources");
@@ -385,6 +435,91 @@ export default function ResourceForm({
           className="text-sm text-blue-600 hover:text-blue-800"
         >
           + Add link
+        </button>
+      </div>
+
+      {/* Resource Authors */}
+      <div>
+        <label className="mb-2 block text-sm font-medium text-gray-700">
+          Resource by (original creators)
+        </label>
+        {resourceAuthors.map((author, i) => (
+          <div key={i} className="mb-4 rounded-md border border-gray-200 p-4">
+            <div className="mb-2 flex gap-2">
+              <input
+                type="text"
+                value={author.name}
+                onChange={(e) => updateResourceAuthor(i, "name", e.target.value)}
+                placeholder="Name *"
+                className="w-1/3 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <input
+                type="url"
+                value={author.imageUrl ?? ""}
+                onChange={(e) => updateResourceAuthor(i, "imageUrl", e.target.value)}
+                placeholder="Image URL (https://...)"
+                className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+            </div>
+            <input
+              type="text"
+              value={author.description ?? ""}
+              onChange={(e) => updateResourceAuthor(i, "description", e.target.value)}
+              placeholder="Short description (optional)"
+              className="mb-3 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+            <p className="mb-1 text-xs font-medium text-gray-500">Links</p>
+            {author.links.map((link, li) => (
+              <div key={li} className="mb-2 flex gap-2">
+                <input
+                  type="text"
+                  value={link.label}
+                  onChange={(e) => updateResourceAuthorLink(i, li, "label", e.target.value)}
+                  placeholder="Label"
+                  className="w-1/3 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+                <input
+                  type="url"
+                  value={link.url}
+                  onChange={(e) => updateResourceAuthorLink(i, li, "url", e.target.value)}
+                  placeholder="https://..."
+                  className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+                {author.links.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeResourceAuthorLink(i, li)}
+                    className="text-sm text-red-500 hover:text-red-700"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))}
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => addResourceAuthorLink(i)}
+                className="text-sm text-blue-600 hover:text-blue-800"
+              >
+                + Add link
+              </button>
+              <button
+                type="button"
+                onClick={() => removeResourceAuthor(i)}
+                className="text-sm text-red-500 hover:text-red-700"
+              >
+                Remove author
+              </button>
+            </div>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addResourceAuthor}
+          className="text-sm text-blue-600 hover:text-blue-800"
+        >
+          + Add author
         </button>
       </div>
 

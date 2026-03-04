@@ -103,7 +103,8 @@ model Resource {
   status         ResourceStatus @default(DRAFT)
   targetAudience String[]
   thumbnailUrl   String?
-  externalLinks  Json?
+  externalLinks   Json?
+  resourceAuthors Json?
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
