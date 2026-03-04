@@ -39,6 +39,23 @@ export default function SignInPage() {
           Continue with Google
         </button>
       </form>
+
+      {process.env.NODE_ENV === "development" && (
+        <form
+          className="mt-6"
+          action={async () => {
+            "use server";
+            await signIn("credentials", { redirectTo: "/admin" });
+          }}
+        >
+          <button
+            type="submit"
+            className="rounded-lg border border-dashed border-muted-foreground/40 px-6 py-3 text-sm text-muted-foreground transition-colors hover:border-muted-foreground hover:text-foreground"
+          >
+            Dev: login as admin
+          </button>
+        </form>
+      )}
     </div>
   );
 }

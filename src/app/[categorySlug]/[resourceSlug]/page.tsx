@@ -13,6 +13,13 @@ interface ExternalLink {
   description?: string;
 }
 
+interface ResourceAuthor {
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  links: Array<{ label: string; url: string }>;
+}
+
 interface ResourcePageProps {
   params: Promise<{ categorySlug: string; resourceSlug: string }>;
 }
@@ -71,7 +78,8 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
     userHasLiked = !!like;
   }
 
-  const externalLinks = (resource.externalLinks as ExternalLink[] | null) ?? [];
+  const externalLinks = (resource.externalLinks as unknown as ExternalLink[] | null) ?? [];
+  const resourceAuthors = (resource.resourceAuthors as unknown as ResourceAuthor[] | null) ?? [];
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
@@ -113,7 +121,7 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
         {/* Authors */}
         {resource.authors.length > 0 && (
           <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-            <span>By</span>
+            <span>Curated by</span>
             {resource.authors.map((author, index) => (
               <div key={author.id} className="flex items-center gap-1.5">
                 {index > 0 && <span>&amp;</span>}
@@ -158,6 +166,47 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
                     {link.description}
                   </p>
                 )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Resource by */}
+      {resourceAuthors.length > 0 && (
+        <section className="mb-12 rounded-lg border border-border bg-card p-6">
+          <h2 className="mb-4 text-lg font-semibold text-foreground">Resource by</h2>
+          <ul className="space-y-6">
+            {resourceAuthors.map((author, index) => (
+              <li key={index} className="flex gap-4">
+                {author.imageUrl && (
+                  <img
+                    src={author.imageUrl}
+                    alt={author.name}
+                    className="h-12 w-12 flex-shrink-0 rounded-full object-cover"
+                  />
+                )}
+                <div>
+                  <p className="font-medium text-foreground">{author.name}</p>
+                  {author.description && (
+                    <p className="mt-0.5 text-sm text-muted-foreground">{author.description}</p>
+                  )}
+                  {author.links.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-3">
+                      {author.links.map((link, li) => (
+                        <a
+                          key={li}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-primary hover:text-accent"
+                        >
+                          {link.label} &rarr;
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </li>
             ))}
           </ul>
