@@ -164,13 +164,13 @@ export default function SubmissionForm({
           className="mb-1 block text-sm font-medium text-gray-700"
         >
           Detailed Content{" "}
-          <span className="font-normal text-gray-400">(optional, Markdown)</span>
+          <span className="font-normal text-gray-400">(optional)</span>
         </label>
         <textarea
           id="sub-body"
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          placeholder="Provide detailed content in Markdown format..."
+          placeholder="Describe what the resource is and what it can be used for. This will help us understand it better - we will be in touch if we need more info."
           rows={6}
           className="w-full rounded-md border border-gray-300 px-3 py-2 font-mono text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
         />
