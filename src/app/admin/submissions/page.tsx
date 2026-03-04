@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 interface Submission {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   body: string | null;
   type: string;
   externalUrl: string | null;
@@ -109,7 +109,9 @@ export default function AdminSubmissionsPage() {
                 </span>
               </div>
 
-              <p className="mb-2 text-sm text-gray-700">{sub.description}</p>
+              {sub.description && (
+                <p className="mb-2 text-sm text-gray-700">{sub.description}</p>
+              )}
 
               {sub.body && (
                 <details className="mb-2">

@@ -10,20 +10,19 @@ export default function SubmissionForm({
   isAuthenticated,
 }: SubmissionFormProps) {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [body, setBody] = useState("");
-  const [externalLinks, setExternalLinks] = useState([{ label: "", url: "" }]);
+  const [externalLinks, setExternalLinks] = useState([{ url: "" }]);
   const [contactInfo, setContactInfo] = useState("");
 
   function addLink() {
-    setExternalLinks([...externalLinks, { label: "", url: "" }]);
+    setExternalLinks([...externalLinks, { url: "" }]);
   }
   function removeLink(i: number) {
     setExternalLinks(externalLinks.filter((_, idx) => idx !== i));
   }
-  function updateLink(i: number, field: "label" | "url", value: string) {
+  function updateLink(i: number, value: string) {
     const updated = [...externalLinks];
-    updated[i] = { ...updated[i], [field]: value };
+    updated[i] = { url: value };
     setExternalLinks(updated);
   }
   const [submitting, setSubmitting] = useState(false);
@@ -61,9 +60,8 @@ export default function SubmissionForm({
           onClick={() => {
             setSubmitted(false);
             setTitle("");
-            setDescription("");
             setBody("");
-            setExternalLinks([{ label: "", url: "" }]);
+            setExternalLinks([{ url: "" }]);
             setContactInfo("");
           }}
           className="mt-4 text-sm text-green-600 hover:text-green-800"
@@ -79,8 +77,8 @@ export default function SubmissionForm({
     if (submitting) return;
     setError("");
 
-    if (!title.trim() || !description.trim()) {
-      setError("Title and description are required.");
+    if (!title.trim()) {
+      setError("Title is required.");
       return;
     }
 
@@ -91,9 +89,8 @@ export default function SubmissionForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: title.trim(),
-          description: description.trim(),
           body: body.trim() || null,
-          externalLinks: externalLinks.filter((l) => l.label && l.url),
+          externalLinks: externalLinks.filter((l) => l.url),
           contactInfo: contactInfo.trim() || null,
         }),
       });
@@ -142,28 +139,10 @@ export default function SubmissionForm({
 
       <div>
         <label
-          htmlFor="sub-description"
-          className="mb-1 block text-sm font-medium text-gray-700"
-        >
-          Short Description *
-        </label>
-        <textarea
-          id="sub-description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="A brief summary of the resource (shown on cards)"
-          rows={2}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
-          required
-        />
-      </div>
-
-      <div>
-        <label
           htmlFor="sub-body"
           className="mb-1 block text-sm font-medium text-gray-700"
         >
-          Detailed Content{" "}
+          Description{" "}
           <span className="font-normal text-gray-400">(optional)</span>
         </label>
         <textarea
@@ -184,16 +163,9 @@ export default function SubmissionForm({
         {externalLinks.map((link, i) => (
           <div key={i} className="mb-2 flex gap-2">
             <input
-              type="text"
-              value={link.label}
-              onChange={(e) => updateLink(i, "label", e.target.value)}
-              placeholder="Label"
-              className="w-1/3 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
-            />
-            <input
               type="url"
               value={link.url}
-              onChange={(e) => updateLink(i, "url", e.target.value)}
+              onChange={(e) => updateLink(i, e.target.value)}
               placeholder="https://..."
               className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
             />

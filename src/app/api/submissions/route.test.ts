@@ -17,17 +17,16 @@ describe("POST /api/submissions", () => {
     const created = {
       id: "sub-1",
       title: "My Tool",
-      description: "A helpful tool",
-      type: "Tool",
+      description: "",
       body: null,
-      externalUrl: null,
+      externalLinks: [],
       submittedById: "test-user-id",
     };
     mockPrisma.submission.create.mockResolvedValue(created);
 
     const req = new Request("http://localhost", {
       method: "POST",
-      body: JSON.stringify({ title: "My Tool", description: "A helpful tool", type: "Tool" }),
+      body: JSON.stringify({ title: "My Tool" }),
     });
     const res = await POST(req);
     const data = await res.json();
@@ -35,37 +34,45 @@ describe("POST /api/submissions", () => {
     expect(res.status).toBe(201);
     expect(data).toEqual(created);
     expect(mockPrisma.submission.create).toHaveBeenCalledWith({
-      data: {
+      data: expect.objectContaining({
         title: "My Tool",
-        description: "A helpful tool",
         body: null,
-        type: "Tool",
-        externalUrl: null,
-        submittedById: "test-user-id",
-      },
+        externalLinks: [],
+      }),
     });
   });
 
-  it("stores optional body and externalUrl when provided", async () => {
+  it("stores optional body when provided", async () => {
     mockAuth.mockResolvedValue(createMockSession());
     mockPrisma.submission.create.mockResolvedValue({ id: "sub-2" });
 
     const req = new Request("http://localhost", {
       method: "POST",
+      body: JSON.stringify({ title: "My Article", body: "## Content" }),
+    });
+    await POST(req);
+
+    expect(mockPrisma.submission.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({ body: "## Content" }),
+    });
+  });
+
+  it("stores externalLinks when provided", async () => {
+    mockAuth.mockResolvedValue(createMockSession());
+    mockPrisma.submission.create.mockResolvedValue({ id: "sub-3" });
+
+    const req = new Request("http://localhost", {
+      method: "POST",
       body: JSON.stringify({
         title: "My Article",
-        description: "Desc",
-        type: "Article",
-        body: "## Content",
-        externalUrl: "https://example.com",
+        externalLinks: [{ url: "https://example.com" }],
       }),
     });
     await POST(req);
 
     expect(mockPrisma.submission.create).toHaveBeenCalledWith({
       data: expect.objectContaining({
-        body: "## Content",
-        externalUrl: "https://example.com",
+        externalLinks: [{ url: "https://example.com" }],
       }),
     });
   });
@@ -75,7 +82,7 @@ describe("POST /api/submissions", () => {
 
     const req = new Request("http://localhost", {
       method: "POST",
-      body: JSON.stringify({ title: "T", description: "D", type: "Tool" }),
+      body: JSON.stringify({ title: "T" }),
     });
     const res = await POST(req);
 
@@ -88,7 +95,7 @@ describe("POST /api/submissions", () => {
 
     const req = new Request("http://localhost", {
       method: "POST",
-      body: JSON.stringify({ description: "D", type: "Tool" }),
+      body: JSON.stringify({ body: "Some content" }),
     });
     const res = await POST(req);
 
@@ -96,12 +103,15 @@ describe("POST /api/submissions", () => {
     expect(mockPrisma.submission.create).not.toHaveBeenCalled();
   });
 
-  it("returns 400 when type is missing", async () => {
+  it("returns 400 for invalid URL in external links", async () => {
     mockAuth.mockResolvedValue(createMockSession());
 
     const req = new Request("http://localhost", {
       method: "POST",
-      body: JSON.stringify({ title: "T", description: "D" }),
+      body: JSON.stringify({
+        title: "T",
+        externalLinks: [{ url: "javascript:alert(1)" }],
+      }),
     });
     const res = await POST(req);
 
