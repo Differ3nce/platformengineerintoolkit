@@ -178,7 +178,7 @@ export default function SubmissionForm({
 
       <div>
         <label className="mb-2 block text-sm font-medium text-gray-700">
-          Links{" "}
+          Links to the external resources{" "}
           <span className="font-normal text-gray-400">(optional)</span>
         </label>
         {externalLinks.map((link, i) => (
