@@ -60,9 +60,28 @@ export default function ResourceForm({
   const router = useRouter();
   const isEditing = !!initialData;
 
+  const USE_WHEN_HEADING = "## Use it when you want to";
+
+  function parseBody(body: string) {
+    const idx = body.indexOf(USE_WHEN_HEADING);
+    if (idx === -1) return { overview: body, useWhen: "" };
+    return {
+      overview: body.slice(0, idx).trimEnd(),
+      useWhen: body.slice(idx + USE_WHEN_HEADING.length).trimStart(),
+    };
+  }
+
+  function combineBody(overview: string, useWhen: string) {
+    if (!useWhen.trim()) return overview;
+    return `${overview}\n\n${USE_WHEN_HEADING}\n\n${useWhen}`;
+  }
+
+  const parsed = parseBody(initialData?.body ?? "");
+
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [description, setDescription] = useState(initialData?.description ?? "");
-  const [bodyContent, setBodyContent] = useState(initialData?.body ?? "");
+  const [overview, setOverview] = useState(parsed.overview);
+  const [useWhen, setUseWhen] = useState(parsed.useWhen);
   const [status, setStatus] = useState(initialData?.status ?? "DRAFT");
   const [audienceInput, setAudienceInput] = useState(
     initialData?.targetAudience.join(", ") ?? ""
@@ -165,7 +184,7 @@ export default function ResourceForm({
     const payload = {
       title,
       description,
-      bodyContent,
+      bodyContent: combineBody(overview, useWhen),
       status,
       targetAudience,
       thumbnailUrl: thumbnailUrl || null,
@@ -259,21 +278,35 @@ export default function ResourceForm({
         />
       </div>
 
-      {/* Body (markdown) */}
-      <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700">
-          Body (Markdown)
-        </label>
-        <textarea
-          value={bodyContent}
-          onChange={(e) => setBodyContent(e.target.value)}
-          rows={16}
-          placeholder="Write your content in Markdown..."
-          className="w-full rounded-md border border-gray-300 px-3 py-2 font-mono text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-        />
-        <p className="mt-1 text-xs text-gray-400">
-          Supports Markdown: headings, bold, lists, links, etc.
-        </p>
+      {/* Body (markdown) — split into two sections */}
+      <div className="space-y-4">
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Overview (Markdown)
+          </label>
+          <textarea
+            value={overview}
+            onChange={(e) => setOverview(e.target.value)}
+            rows={12}
+            placeholder="Write an overview in Markdown..."
+            className="w-full rounded-md border border-gray-300 px-3 py-2 font-mono text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Use it when you want to (Markdown)
+          </label>
+          <textarea
+            value={useWhen}
+            onChange={(e) => setUseWhen(e.target.value)}
+            rows={6}
+            placeholder="Describe when to use this resource... (leave empty to hide this section)"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 font-mono text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          />
+          <p className="mt-1 text-xs text-gray-400">
+            Leave empty to hide this section on the resource page.
+          </p>
+        </div>
       </div>
 
       {/* Status */}
