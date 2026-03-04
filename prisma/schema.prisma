@@ -165,6 +165,7 @@ model Submission {
   body          String?
   type          String
   externalUrl   String?
+  contactInfo   String?
   status        SubmissionStatus @default(PENDING)
 
   submittedBy   User   @relation("SubmittedBy", fields: [submittedById], references: [id])

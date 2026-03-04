@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { title, description, body, type, externalUrl } = await req.json();
+  const { title, description, body, type, externalUrl, contactInfo } = await req.json();
 
   if (!title || !description || !type) {
     return NextResponse.json(
@@ -35,6 +35,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Body exceeds maximum length" }, { status: 400 });
   }
 
+  if (contactInfo && contactInfo.length > 500) {
+    return NextResponse.json({ error: "Contact info exceeds maximum length" }, { status: 400 });
+  }
+
   if (externalUrl) {
     if (externalUrl.length > 2000 || !/^https?:\/\//i.test(externalUrl)) {
       return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
@@ -48,6 +52,7 @@ export async function POST(req: Request) {
       body: body || null,
       type,
       externalUrl: externalUrl || null,
+      contactInfo: contactInfo || null,
       submittedById: session.user.id,
     },
   });
@@ -66,6 +71,7 @@ export async function POST(req: Request) {
           `Type: ${type}`,
           `Description: ${description}`,
           externalUrl ? `URL: ${externalUrl}` : null,
+          contactInfo ? `Contact: ${contactInfo}` : null,
           ``,
           `Submitted by: ${session.user.name} (${session.user.email})`,
         ]

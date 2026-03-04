@@ -10,6 +10,7 @@ interface Submission {
   body: string | null;
   type: string;
   externalUrl: string | null;
+  contactInfo: string | null;
   status: string;
   reviewNote: string | null;
   createdAt: string;
@@ -131,6 +132,13 @@ export default function AdminSubmissionsPage() {
                   >
                     {sub.externalUrl}
                   </a>
+                </p>
+              )}
+
+              {sub.contactInfo && (
+                <p className="mb-2 text-sm">
+                  <span className="text-gray-500">Contact: </span>
+                  {sub.contactInfo}
                 </p>
               )}
 
